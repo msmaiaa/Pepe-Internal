@@ -1,8 +1,21 @@
 #include <iostream>
+#include "features.h"
 #include "csgosdk.h"
 #include "entity.h"
 
 uintptr_t DETACH_KEY = VK_END;
+uintptr_t BHOP_KEY = VK_SPACE;
+bool noFlashActivated = false;
+bool isRadarActivated = false;
+bool isBhopActivated = false;
+
+LocalPlayer* localPlayer;
+IClientEntityList* ClientEntityList;
+uintptr_t clientModule;
+
+void printMenu() {
+    std::cout << "[F1] No flash\n[F2] Radar\n[F3] Bunnyhop\n[F4] Glowhack\n[F5] RCS" << std::endl;
+}
 
 DWORD WINAPI InternalMain(HMODULE hMod) {
 #ifdef _DEBUG
@@ -10,19 +23,40 @@ DWORD WINAPI InternalMain(HMODULE hMod) {
     FILE* f;
     freopen_s(&f, "CONOUT$", "w", stdout);
 #endif
+    printMenu();
+    ClientEntityList = (IClientEntityList*)GetInterface(L"client.dll", "VClientEntityList003");
+    localPlayer = (LocalPlayer*)ClientEntityList->GetClientEntity(1);
+    clientModule = (uintptr_t)GetModuleHandle(L"client.dll");
 
-    IClientEntityList* ClientEntityList = (IClientEntityList*)GetInterface(L"client.dll", "VClientEntityList003");
-    LocalPlayer* localPlayer = (LocalPlayer*)ClientEntityList->GetClientEntity(1);
     while (!GetAsyncKeyState(DETACH_KEY) & 1) {
-        localPlayer->resetFlashDuration();
-        Sleep(10);
+        //  do hacks 
+        if(noFlashActivated) localPlayer->resetFlashDuration();
+        if (isRadarActivated) doRadar();
+        if (GetAsyncKeyState(VK_SPACE) & 0x8000 && isBhopActivated) doBhop();
+
+        //  activate/deactivate hacks
+        if (GetAsyncKeyState(VK_F1) & 1) {
+            noFlashActivated = !noFlashActivated;
+        }
+        if (GetAsyncKeyState(VK_F2) & 1) {
+            isRadarActivated = !isRadarActivated;
+        }
+        if (GetAsyncKeyState(VK_F3) & 1) {
+            isBhopActivated = !isBhopActivated;
+        }
+        if (GetAsyncKeyState(VK_F4) & 1) {
+
+        }
+        if (GetAsyncKeyState(VK_F5) & 1) {
+
+        }
+        Sleep(1);
     }
 
-#ifdef _DEBUG //Close our console
+#ifdef _DEBUG 
     if (f != nullptr) fclose(f);
     FreeConsole();
 #endif 
-    //eject our library
     FreeLibraryAndExitThread(hMod, 0);
     return 0;
 }

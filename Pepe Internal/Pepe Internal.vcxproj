@@ -154,12 +154,14 @@
     <ClInclude Include="csgo.h" />
     <ClInclude Include="csgosdk.h" />
     <ClInclude Include="entity.h" />
+    <ClInclude Include="features.h" />
     <ClInclude Include="internal.h" />
     <ClInclude Include="vector.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="entity.cpp" />
+    <ClCompile Include="features.cpp" />
     <ClCompile Include="internal.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

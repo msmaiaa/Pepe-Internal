@@ -10,7 +10,12 @@ struct vec3 {
 	vec3 operator-(vec3 b) {
 		return { x - b.x, y - b.y, z - b.y };
 	}
+
+	bool isMoving() {
+		return ((x + y + z) != 0.0f);
+	}
 };
+
 
 struct vec2 {
 	float x, y;

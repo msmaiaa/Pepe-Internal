@@ -1,4 +1,5 @@
 #include <iostream>
+#include "csgo.h"
 #include "features.h"
 #include "csgosdk.h"
 #include "entity.h"
@@ -8,10 +9,12 @@ uintptr_t BHOP_KEY = VK_SPACE;
 bool noFlashActivated = false;
 bool isRadarActivated = false;
 bool isBhopActivated = false;
+bool isGlowActivated = false;
 
 LocalPlayer* localPlayer;
 IClientEntityList* ClientEntityList;
 uintptr_t clientModule;
+uintptr_t* glowObject;
 
 void printMenu() {
     std::cout << "[F1] No flash\n[F2] Radar\n[F3] Bunnyhop\n[F4] Glowhack\n[F5] RCS" << std::endl;
@@ -27,12 +30,14 @@ DWORD WINAPI InternalMain(HMODULE hMod) {
     ClientEntityList = (IClientEntityList*)GetInterface(L"client.dll", "VClientEntityList003");
     localPlayer = (LocalPlayer*)ClientEntityList->GetClientEntity(1);
     clientModule = (uintptr_t)GetModuleHandle(L"client.dll");
+    glowObject = (uintptr_t*)(clientModule + offsets::dwGlowObjectManager);
 
     while (!GetAsyncKeyState(DETACH_KEY) & 1) {
         //  do hacks 
         if(noFlashActivated) localPlayer->resetFlashDuration();
         if (isRadarActivated) doRadar();
         if (GetAsyncKeyState(VK_SPACE) & 0x8000 && isBhopActivated) doBhop();
+        if (isGlowActivated) doGlow();
 
         //  activate/deactivate hacks
         if (GetAsyncKeyState(VK_F1) & 1) {
@@ -45,7 +50,7 @@ DWORD WINAPI InternalMain(HMODULE hMod) {
             isBhopActivated = !isBhopActivated;
         }
         if (GetAsyncKeyState(VK_F4) & 1) {
-
+            isGlowActivated = !isGlowActivated;
         }
         if (GetAsyncKeyState(VK_F5) & 1) {
 

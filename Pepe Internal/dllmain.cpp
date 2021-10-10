@@ -6,10 +6,11 @@
 
 uintptr_t DETACH_KEY = VK_END;
 uintptr_t BHOP_KEY = VK_SPACE;
-bool noFlashActivated = false;
-bool isRadarActivated = false;
-bool isBhopActivated = false;
-bool isGlowActivated = false;
+bool noFlashActivated, 
+isRadarActivated, 
+isBhopActivated,
+isGlowActivated,
+isTbotActivated = false;
 
 LocalPlayer* localPlayer;
 IClientEntityList* ClientEntityList;
@@ -17,7 +18,8 @@ uintptr_t clientModule;
 uintptr_t* glowObject;
 
 void printMenu() {
-    std::cout << "[F1] No flash\n[F2] Radar\n[F3] Bunnyhop\n[F4] Glowhack\n[F5] RCS" << std::endl;
+    const char* str = "[F1] No flash\n[F2] Radar\n[F3] Bunnyhop\n[F4] Glowhack\n[F6] Triggerbot\n[F7] RCS";
+    std::cout << str  << std::endl;
 }
 
 DWORD WINAPI InternalMain(HMODULE hMod) {
@@ -38,6 +40,7 @@ DWORD WINAPI InternalMain(HMODULE hMod) {
         if (isRadarActivated) doRadar();
         if (GetAsyncKeyState(VK_SPACE) & 0x8000 && isBhopActivated) doBhop();
         if (isGlowActivated) doGlow();
+        if (isTbotActivated) doTbot();
 
         //  activate/deactivate hacks
         if (GetAsyncKeyState(VK_F1) & 1) {
@@ -52,8 +55,8 @@ DWORD WINAPI InternalMain(HMODULE hMod) {
         if (GetAsyncKeyState(VK_F4) & 1) {
             isGlowActivated = !isGlowActivated;
         }
-        if (GetAsyncKeyState(VK_F5) & 1) {
-
+        if (GetAsyncKeyState(VK_F6) & 1) {
+            isTbotActivated = !isTbotActivated;
         }
         Sleep(1);
     }

@@ -20,6 +20,7 @@ public:
         DEFINE_MEMBER_N(bool, isDormant, offsets::m_bDormant);
         DEFINE_MEMBER_N(int, teamNum, offsets::m_iTeamNum);
         DEFINE_MEMBER_N(int, glowIndex, offsets::m_iGlowIndex);
+        DEFINE_MEMBER_N(int, crosshairId, offsets::m_iCrosshairId);
         DEFINE_MEMBER_N(BYTE, flags, offsets::m_fFlags);
         DEFINE_MEMBER_N(vec3, velocity, offsets::m_vecVelocity);
         DEFINE_MEMBER_N(vec3, m_vecViewOffset, offsets::m_vecViewOffset);

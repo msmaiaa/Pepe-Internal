@@ -8,7 +8,7 @@ namespace offsets
 	//signatures
 
 	constexpr ptrdiff_t dwClientState = 0x588FEC;
-	constexpr ptrdiff_t dwClientState_GetLocalPlayer = 0x180;
+	constexpr ptrdiff_t dwClientState_GetLocalPlayer = 0x17C;
 	constexpr ptrdiff_t dwClientState_IsHLTV = 0x4D48;
 	constexpr ptrdiff_t dwClientState_Map = 0x28C;
 	constexpr ptrdiff_t dwClientState_MapDirectory = 0x188;

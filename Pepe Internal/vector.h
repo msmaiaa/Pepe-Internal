@@ -5,14 +5,21 @@ struct vec3 {
 		return { x * b, y * b, z * b };
 	}
 	vec3 operator+(vec3 b) {
-		return { x + b.x, y + b.y, z + b.y };
+		return { x + b.x, y + b.y, z + b.z };
 	}
 	vec3 operator-(vec3 b) {
-		return { x - b.x, y - b.y, z - b.y };
+		return { x - b.x, y - b.y, z - b.z };
 	}
 
 	bool isMoving() {
 		return ((x + y + z) != 0.0f);
+	}
+
+	void normalize() {
+		while (y < -180) { y += 360; }
+		while (y > 180) { y -= 360; }
+		if (x > 89) { x = 89; }
+		if (x < -89) { x = -89; }
 	}
 };
 
@@ -27,5 +34,12 @@ struct vec2 {
 	}
 	vec2 operator-(vec2 b) {
 		return { x - b.x, y - b.y };
+	}
+
+	void normalize() {
+		while (y < -180) { y += 360; }
+		while (y > 180) { y -= 360; }
+		if (x > 89) { x = 89; }
+		if (x < -89) { x = -89; }
 	}
 };

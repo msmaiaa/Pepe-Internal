@@ -18,6 +18,8 @@ public:
         DEFINE_MEMBER_N(float, flashDuration, offsets::m_flFlashDuration);
         DEFINE_MEMBER_N(bool, isSpotted, offsets::m_bSpotted);
         DEFINE_MEMBER_N(bool, isDormant, offsets::m_bDormant);
+        DEFINE_MEMBER_N(int, shotsFired, offsets::m_iShotsFired);
+        DEFINE_MEMBER_N(vec3, aimPunchAngle, offsets::m_aimPunchAngle);
         DEFINE_MEMBER_N(int, teamNum, offsets::m_iTeamNum);
         DEFINE_MEMBER_N(int, glowIndex, offsets::m_iGlowIndex);
         DEFINE_MEMBER_N(int, crosshairId, offsets::m_iCrosshairId);

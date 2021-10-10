@@ -11,3 +11,4 @@ void doRadar();
 void doBhop();
 void doGlow();
 void doTbot();
+void doRCS();

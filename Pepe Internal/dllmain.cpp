@@ -28,6 +28,7 @@ uintptr_t clientModule;
 uintptr_t engineModule;
 uintptr_t* glowObject;
 uintptr_t* clientState;
+int* localPlayerIndex;
 
 
 inline void drawMenu() noexcept {
@@ -55,25 +56,27 @@ void hook::drawFrame() noexcept {
 }
 
 DWORD WINAPI InternalMain(HMODULE hMod) {
-/*#ifdef _DEBUG
+#ifdef _DEBUG
     AllocConsole();
     FILE* f;
     freopen_s(&f, "CONOUT$", "w", stdout);
-#endif*/
+#endif
     ClientEntityList = (IClientEntityList*)GetInterface(L"client.dll", "VClientEntityList003");
     Surface = (ISurface*)GetInterface(L"vguimatsurface.dll", "VGUI_Surface031");
     Input = *(CInput**)(FindPattern("client.dll", "B9 ? ? ? ? F3 0F 11 04 24 FF 50 10") + 0x1);
     engineModule = (uintptr_t)GetModuleHandle(L"engine.dll");
     clientModule = (uintptr_t)GetModuleHandle(L"client.dll");
     clientState = (uintptr_t*)(engineModule + offsets::dwClientState);
-    int* localPlayerIndex = (int*)(*clientState + offsets::dwClientState_GetLocalPlayer);
-    localPlayer = (LocalPlayer*)ClientEntityList->GetClientEntity(*localPlayerIndex);
+
 
     glowObject = (uintptr_t*)(clientModule + offsets::dwGlowObjectManager);
 
     if (engineModule) {
         if (hook::init()) {
             while (!GetAsyncKeyState(DETACH_KEY) & 1) {
+                localPlayerIndex = (int*)(*clientState + 0x17C);
+                localPlayer = (LocalPlayer*)ClientEntityList->GetClientEntity(*localPlayerIndex);
+                std::cout << "localPlayer: " << std::hex << localPlayer << " - Player index: " << *localPlayerIndex << std::endl;
                 //  do hacks
                 if (noFlashActivated) {
                     if (localPlayer != NULL) {
@@ -102,16 +105,16 @@ DWORD WINAPI InternalMain(HMODULE hMod) {
                 }
                 Sleep(1);
             }
-            isMenuOpened = false;            
-            hook::destroy();
+            isMenuOpened = false;   
             Sleep(200);
+            hook::destroy();
         }
     }
 
-/*#ifdef _DEBUG 
+#ifdef _DEBUG 
     if (f != nullptr) fclose(f);
     FreeConsole();
-#endif */
+#endif 
     FreeLibraryAndExitThread(hMod, 0);
     return 0;
 }

@@ -14,7 +14,7 @@ typedef HRESULT(APIENTRY* tEndScene9)(LPDIRECT3DDEVICE9 pDevice);
 HRESULT APIENTRY hEndScene(LPDIRECT3DDEVICE9 pdevice);
 
 typedef long(__stdcall* Reset)(LPDIRECT3DDEVICE9, D3DPRESENT_PARAMETERS*);
-static Reset oReset = NULL;
+//static Reset oReset = NULL;
 
 extern  LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -111,20 +111,20 @@ void render::fullscreen::draw::circle(const ImVec2& pos, float radius, const ImC
 	ImGui::GetWindowDrawList()->AddCircle(pos, radius, color);
 }
 
-long __stdcall hkReset(LPDIRECT3DDEVICE9 pDevice, D3DPRESENT_PARAMETERS* pPresentationParameters)
+/*long __stdcall hkReset(LPDIRECT3DDEVICE9 pDevice, D3DPRESENT_PARAMETERS* pPresentationParameters)
 {
 	ImGui_ImplDX9_InvalidateDeviceObjects();
 	long result = oReset(pDevice, pPresentationParameters);
 	ImGui_ImplDX9_CreateDeviceObjects();
 
 	return result;
-}
+}*/
 
 bool hook::init()noexcept {
 	void* d3d9Device[119];
 	if (dx::GetD3D9Device(d3d9Device)) {
 		graphicsHook = new TrampHook(d3d9Device[42], hEndScene, 7);
-		endHook = new TrampHook(d3d9Device[16], hkReset, 7);
+		//endHook = new TrampHook(d3d9Device[16], hkReset, 7);
 		return true;
 	}
 }

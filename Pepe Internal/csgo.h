@@ -8,13 +8,13 @@ namespace offsets
 	//signatures
 
 	constexpr ptrdiff_t dwClientState = 0x588FEC;
-	constexpr ptrdiff_t dwClientState_GetLocalPlayer = 0x17C;
+	constexpr ptrdiff_t dwClientState_GetLocalPlayer = 0x180;
 	constexpr ptrdiff_t dwClientState_IsHLTV = 0x4D48;
 	constexpr ptrdiff_t dwClientState_Map = 0x28C;
 	constexpr ptrdiff_t dwClientState_MapDirectory = 0x188;
 	constexpr ptrdiff_t dwClientState_MaxPlayer = 0x388;
 	constexpr ptrdiff_t dwClientState_PlayerInfo = 0x52C0;
-	constexpr ptrdiff_t dwClientState_State = 0x108;
+	constexpr ptrdiff_t dwClientState_State = 0x17C;
 	constexpr ptrdiff_t dwClientState_ViewAngles = 0x4D90;
 	constexpr ptrdiff_t clientstate_delta_ticks = 0x174;
 	constexpr ptrdiff_t clientstate_last_outgoing_command = 0x4D2C;

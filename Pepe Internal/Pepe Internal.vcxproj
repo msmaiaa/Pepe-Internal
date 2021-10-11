@@ -161,6 +161,8 @@
     <ClInclude Include="..\..\..\otherstuff\csgo\Tauros-v2-master\Tauros\SourceEngine\Vector4D.h" />
     <ClInclude Include="CInput.h" />
     <ClInclude Include="Color.h" />
+    <ClInclude Include="const.h" />
+    <ClInclude Include="CPlayerResource.h" />
     <ClInclude Include="csgo.h" />
     <ClInclude Include="csgosdk.h" />
     <ClInclude Include="Definitions.h" />
@@ -168,6 +170,7 @@
     <ClInclude Include="entity.h" />
     <ClInclude Include="features.h" />
     <ClInclude Include="helpers.h" />
+    <ClInclude Include="IGameResources.h" />
     <ClInclude Include="ImGui\imconfig.h" />
     <ClInclude Include="ImGui\imgui.h" />
     <ClInclude Include="ImGui\imgui_impl_dx9.h" />

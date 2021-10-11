@@ -1,2 +1,5 @@
 ﻿  dllmain.cpp
+G:\code\cpp\csgo\Pepe Internal\Pepe Internal\dllmain.cpp(74,55): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+G:\code\cpp\csgo\Pepe Internal\Pepe Internal\dllmain.cpp(76,29): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+G:\code\cpp\csgo\Pepe Internal\Pepe Internal\dllmain.cpp(77,29): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
   Pepe Internal.vcxproj -> G:\code\cpp\csgo\Pepe Internal\Debug\Pepe Internal.dll

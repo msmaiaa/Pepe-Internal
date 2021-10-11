@@ -105,6 +105,15 @@
     <ClInclude Include="Vector.h">
       <Filter>Header Files\sdk</Filter>
     </ClInclude>
+    <ClInclude Include="IGameResources.h">
+      <Filter>Header Files\sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerResource.h">
+      <Filter>Header Files\sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="const.h">
+      <Filter>Header Files\sdk</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">

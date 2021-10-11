@@ -47,7 +47,7 @@ namespace render {
 
 		namespace draw {
 			void line(const ImVec2& from, const ImVec2& to, float width, const ImColor& color) noexcept;
-			void text(const std::string& text, const ImVec2& pos, float size, float width, const ImColor& color, bool center = true) noexcept;
+			void text(const std::string& text, const ImVec2& pos, float size, const ImColor& color, bool center = true) noexcept;
 			void rect(const ImVec2& upperLeft, const ImVec2& lowerRight, float width, const ImColor& color) noexcept;
 			void circle(const ImVec2& pos, float radius, const ImColor& color) noexcept;
 		}

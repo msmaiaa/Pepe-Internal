@@ -1,5 +1,7 @@
 #include "helpers.h"
 #include "dx.h"
+#include <string>
+#include <sstream>
 
 bool isImGuiInitialized{ false };
 extern bool isMenuOpened;
@@ -70,7 +72,6 @@ void render::fullscreen::start() noexcept {
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, { 0.0f, 0.0f });
 	ImGui::PushStyleColor(ImGuiCol_WindowBg, { 0.0f, 0.0f, 0.0f, 0.0f });
-
 	ImGui::SetNextWindowPos(ImVec2(0, 0), ImGuiCond_Always);
 	ImGui::SetNextWindowSize(ImGui::GetIO().DisplaySize, ImGuiCond_Always);
 
@@ -89,15 +90,16 @@ void render::fullscreen::draw::line(const ImVec2& from, const ImVec2& to, float 
 	ImGui::GetWindowDrawList()->AddLine(from, to, color, width);
 }
 
-void render::fullscreen::draw::text(const std::string& text, const ImVec2& pos, float size, float width, const ImColor& color, bool center) noexcept {
+void render::fullscreen::draw::text(const std::string& text, const ImVec2& pos, float size, const ImColor& color, bool center) noexcept {
+
 	if (center) {
 		const auto txtSize = ImGui::GetFont()->CalcTextSizeA(size, FLT_MAX, 0.0f, text.c_str());
 		ImVec2 center{ pos.x - (txtSize.x / 2),pos.y - (txtSize.y / 2) };
-		ImGui::GetWindowDrawList()->AddText(ImGui::GetFont(), size + 2, pos, black, text.c_str());
+		//ImGui::GetWindowDrawList()->AddText(ImGui::GetFont(), size + 2, pos, black, text.c_str());
 		ImGui::GetWindowDrawList()->AddText(ImGui::GetFont(), size, pos, color, text.c_str());
 		return;
 	}
-	ImGui::GetWindowDrawList()->AddText(ImGui::GetFont(), size + 2, pos, black, text.c_str());
+	//ImGui::GetWindowDrawList()->AddText(ImGui::GetFont(), size + 2, pos, black, text.c_str());
 	ImGui::GetWindowDrawList()->AddText(ImGui::GetFont(), size, pos, color, text.c_str());
 }
 
@@ -147,6 +149,10 @@ HRESULT APIENTRY hEndScene(LPDIRECT3DDEVICE9 pdevice) {
 		//setup ImGui:
 		ImGui::CreateContext();
 		window = FindWindowA("Valve001", nullptr);
+		ImGuiIO& io = ImGui::GetIO();
+		io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\arial.ttf", 18.0f, NULL, io.Fonts->GetGlyphRangesCyrillic());
+		
+
 		oWndProc = (WNDPROC)SetWindowLongPtr(window, GWL_WNDPROC, (LONG_PTR)WndProc);
 		//ImGui_ImplWin32_Init(GetProcessWindow());
 		ImGui_ImplWin32_Init(window);

@@ -5,6 +5,7 @@
 #include "features.h"
 #include "csgosdk.h"
 #include "ISurface.h"
+#include "IVEngineClient.h"
 #include "entity.h"
 
 uintptr_t DETACH_KEY = VK_END;
@@ -22,6 +23,7 @@ isMenuOpened = false;
 
 LocalPlayer* localPlayer;
 IClientEntityList* ClientEntityList;
+IVEngineClient* EngineClient;
 CInput* Input;
 ISurface* Surface;
 uintptr_t clientModule;
@@ -62,6 +64,7 @@ DWORD WINAPI InternalMain(HMODULE hMod) {
     freopen_s(&f, "CONOUT$", "w", stdout);
 #endif
     ClientEntityList = (IClientEntityList*)GetInterface(L"client.dll", "VClientEntityList003");
+    EngineClient = (IVEngineClient*)GetInterface(L"engine.dll", "VEngineClient014");
     Surface = (ISurface*)GetInterface(L"vguimatsurface.dll", "VGUI_Surface031");
     Input = *(CInput**)(FindPattern("client.dll", "B9 ? ? ? ? F3 0F 11 04 24 FF 50 10") + 0x1);
     engineModule = (uintptr_t)GetModuleHandle(L"engine.dll");
@@ -76,7 +79,8 @@ DWORD WINAPI InternalMain(HMODULE hMod) {
             while (!GetAsyncKeyState(DETACH_KEY) & 1) {
                 localPlayerIndex = (int*)(*clientState + 0x17C);
                 localPlayer = (LocalPlayer*)ClientEntityList->GetClientEntity(*localPlayerIndex);
-                std::cout << "localPlayer: " << std::hex << localPlayer << " - Player index: " << *localPlayerIndex << std::endl;
+                std::cout << EngineClient->IsInGame() << std::endl;
+                //std::cout << "localPlayer: " << std::hex << localPlayer << " - Player index: " << *localPlayerIndex << std::endl;
                 //  do hacks
                 if (noFlashActivated) {
                     if (localPlayer != NULL) {

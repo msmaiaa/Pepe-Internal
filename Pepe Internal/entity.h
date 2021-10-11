@@ -1,6 +1,6 @@
 #pragma once
 #include "csgo.h"
-#include "vector.h"
+#include "_vector.h"
 #include <Windows.h>
 
 #define STR_MERGE_IMPL(a, b) a##b

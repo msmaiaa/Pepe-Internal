@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Definitions.h"
+#include "Definitions.hpp"
 
 typedef float vec_t;
 // 2D Vector
@@ -15,7 +15,7 @@ public:
 	Vector2D(vec_t X, vec_t Y);
 	Vector2D(vec_t* clr);
 
-	Vector2D(const Vector2D& vOther)
+	Vector2D::Vector2D(const Vector2D &vOther)
 	{
 		x = vOther.x; y = vOther.y;
 	}
@@ -79,7 +79,7 @@ public:
 	}
 
 	// this ought to be an opcode.
-	Vector2D& operator+=(float fl)
+	Vector2D&	operator+=(float fl)
 	{
 		x += fl;
 		y += fl;
@@ -87,13 +87,13 @@ public:
 	}
 
 	// this ought to be an opcode.
-	Vector2D& operator/=(float fl)
+	Vector2D&	operator/=(float fl)
 	{
 		x /= fl;
 		y /= fl;
 		return *this;
 	}
-	Vector2D& operator-=(float fl)
+	Vector2D&	operator-=(float fl)
 	{
 		x -= fl;
 		y -= fl;
@@ -109,13 +109,13 @@ public:
 	// Get the vector's magnitude squared.
 	vec_t LengthSqr(void) const
 	{
-		return (x * x + y * y);
+		return (x*x + y*y);
 	}
 
 	// return true if this vector is (0,0,0) within tolerance
 	bool IsZero(float tolerance = 0.01f) const
 	{
-		return (x > -tolerance && x < tolerance&&
+		return (x > -tolerance && x < tolerance &&
 			y > -tolerance && y < tolerance);
 	}
 
@@ -125,15 +125,15 @@ public:
 	bool	IsLengthLessThan(float val) const;
 
 	// check if a vector is within the box defined by two other vectors
-	bool WithinAABox(Vector2D const& boxmin, Vector2D const& boxmax);
+	bool WithinAABox(Vector2D const &boxmin, Vector2D const &boxmax);
 
 	// Get the distance from this vector to the other one.
-	vec_t	DistTo(const Vector2D& vOther) const;
+	vec_t	DistTo(const Vector2D &vOther) const;
 
 	// Get the distance from this vector to the other one squared.
 	// NJS: note, VC wasn't inlining it correctly in several deeply nested inlines due to being an 'out of line' .  
 	// may be able to tidy this up after switching to VC7
-	vec_t DistToSqr(const Vector2D& vOther) const
+	vec_t DistToSqr(const Vector2D &vOther) const
 	{
 		Vector2D delta;
 
@@ -155,7 +155,7 @@ public:
 	vec_t	Dot(const Vector2D& vOther) const;
 
 	// assignment
-	Vector2D& operator=(const Vector2D& vOther);
+	Vector2D& operator=(const Vector2D &vOther);
 
 	// 2d
 	vec_t	Length2D(void) const;
@@ -178,9 +178,9 @@ public:
 	Vector2D	operator/(float fl) const;
 
 	// Cross product between two vectors.
-	Vector2D	Cross(const Vector2D& vOther) const;
+	Vector2D	Cross(const Vector2D &vOther) const;
 
 	// Returns a vector with the min or max in X, Y, and Z.
-	Vector2D	Min(const Vector2D& vOther) const;
-	Vector2D	Max(const Vector2D& vOther) const;
+	Vector2D	Min(const Vector2D &vOther) const;
+	Vector2D	Max(const Vector2D &vOther) const;
 };

@@ -40,7 +40,7 @@ void Vector2DClear(Vector2D& a)
 // assignment
 //-----------------------------------------------------------------------------
 
-Vector2D& Vector2D::operator=(const Vector2D& vOther)
+Vector2D& Vector2D::operator=(const Vector2D &vOther)
 {
 	x = vOther.x; y = vOther.y;
 	return *this;
@@ -162,8 +162,8 @@ void Vector2DDivide(const Vector2D& a, const Vector2D& b, Vector2D& c)
 
 void Vector2DMA(const Vector2D& start, float s, const Vector2D& dir, Vector2D& result)
 {
-	result.x = start.x + s * dir.x;
-	result.y = start.y + s * dir.y;
+	result.x = start.x + s*dir.x;
+	result.y = start.y + s*dir.y;
 }
 
 // FIXME: Remove
@@ -185,7 +185,7 @@ void Vector2DLerp(const Vector2D& src1, const Vector2D& src2, vec_t t, Vector2D&
 //-----------------------------------------------------------------------------
 vec_t DotProduct2D(const Vector2D& a, const Vector2D& b)
 {
-	return(a.x * b.x + a.y * b.y);
+	return(a.x*b.x + a.y*b.y);
 }
 
 // for backwards compatability
@@ -211,7 +211,7 @@ vec_t Vector2DNormalize(Vector2D& v)
 //-----------------------------------------------------------------------------
 vec_t Vector2DLength(const Vector2D& v)
 {
-	return (vec_t)sqrt(v.x * v.x + v.y * v.y);
+	return (vec_t)sqrt(v.x*v.x + v.y*v.y);
 }
 
 vec_t Vector2D::NormalizeInPlace()
@@ -221,12 +221,12 @@ vec_t Vector2D::NormalizeInPlace()
 
 bool Vector2D::IsLengthGreaterThan(float val) const
 {
-	return LengthSqr() > val * val;
+	return LengthSqr() > val*val;
 }
 
 bool Vector2D::IsLengthLessThan(float val) const
 {
-	return LengthSqr() < val * val;
+	return LengthSqr() < val*val;
 }
 
 vec_t Vector2D::Length(void) const
@@ -235,14 +235,14 @@ vec_t Vector2D::Length(void) const
 }
 
 
-void Vector2DMin(const Vector2D& a, const Vector2D& b, Vector2D& result)
+void Vector2DMin(const Vector2D &a, const Vector2D &b, Vector2D &result)
 {
 	result.x = (a.x < b.x) ? a.x : b.x;
 	result.y = (a.y < b.y) ? a.y : b.y;
 }
 
 
-void Vector2DMax(const Vector2D& a, const Vector2D& b, Vector2D& result)
+void Vector2DMax(const Vector2D &a, const Vector2D &b, Vector2D &result)
 {
 	result.x = (a.x > b.x) ? a.x : b.x;
 	result.y = (a.y > b.y) ? a.y : b.y;
@@ -251,7 +251,7 @@ void Vector2DMax(const Vector2D& a, const Vector2D& b, Vector2D& result)
 //-----------------------------------------------------------------------------
 // Computes the closest point to vecTarget no farther than flMaxDist from vecStart
 //-----------------------------------------------------------------------------
-void ComputeClosestPoint2D(const Vector2D& vecStart, float flMaxDist, const Vector2D& vecTarget, Vector2D* pResult)
+void ComputeClosestPoint2D(const Vector2D& vecStart, float flMaxDist, const Vector2D& vecTarget, Vector2D *pResult)
 {
 	Vector2D vecDelta;
 	Vector2DSubtract(vecTarget, vecStart, vecDelta);
@@ -269,12 +269,12 @@ void ComputeClosestPoint2D(const Vector2D& vecStart, float flMaxDist, const Vect
 // Returns a Vector2D with the min or max in X, Y, and Z.
 //-----------------------------------------------------------------------------
 
-Vector2D Vector2D::Min(const Vector2D& vOther) const
+Vector2D Vector2D::Min(const Vector2D &vOther) const
 {
 	return Vector2D(x < vOther.x ? x : vOther.x, y < vOther.y ? y : vOther.y);
 }
 
-Vector2D Vector2D::Max(const Vector2D& vOther) const
+Vector2D Vector2D::Max(const Vector2D &vOther) const
 {
 	return Vector2D(x > vOther.x ? x : vOther.x, y > vOther.y ? y : vOther.y);
 }

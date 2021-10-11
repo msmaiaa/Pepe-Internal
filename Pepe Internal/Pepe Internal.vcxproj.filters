@@ -27,7 +27,7 @@
     <ClInclude Include="csgo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="vector.h">
+    <ClInclude Include="_vector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="entity.h">
@@ -78,6 +78,33 @@
     <ClInclude Include="QAngle.h">
       <Filter>Header Files\sdk</Filter>
     </ClInclude>
+    <ClInclude Include="IVEngineClient.h">
+      <Filter>Header Files\sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="Definitions.h">
+      <Filter>Header Files\sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="Color.h">
+      <Filter>Header Files\sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="VMatrix.h">
+      <Filter>Header Files\sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\otherstuff\csgo\Tauros-v2-master\Tauros\SourceEngine\Vector.h">
+      <Filter>Header Files\sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\otherstuff\csgo\Tauros-v2-master\Tauros\SourceEngine\Vector2D.h">
+      <Filter>Header Files\sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\otherstuff\csgo\Tauros-v2-master\Tauros\SourceEngine\Vector4D.h">
+      <Filter>Header Files\sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\otherstuff\csgo\Tauros-v2-master\Tauros\SourceEngine\PlayerInfo.h">
+      <Filter>Header Files\sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector.h">
+      <Filter>Header Files\sdk</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -117,6 +144,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CInput.cpp">
+      <Filter>Header Files\sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="VMatrix.cpp">
+      <Filter>Header Files\sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\otherstuff\csgo\Tauros-v2-master\Tauros\SourceEngine\Vector.cpp">
+      <Filter>Header Files\sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\otherstuff\csgo\Tauros-v2-master\Tauros\SourceEngine\Vector2D.cpp">
+      <Filter>Header Files\sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\otherstuff\csgo\Tauros-v2-master\Tauros\SourceEngine\Vector4D.cpp">
       <Filter>Header Files\sdk</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,6 +1,6 @@
 #pragma once
 #include "QAngle.h"
-#include "vector.h"
+#include "_vector.h"
 
 class CUserCmd {
 public:

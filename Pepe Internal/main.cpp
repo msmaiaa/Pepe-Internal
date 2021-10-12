@@ -5,7 +5,7 @@
 #include "menu.h"
 
 uintptr_t DETACH_KEY = VK_END;
-
+extern EventListener* g_eventListener;
 DWORD WINAPI InternalMain(HMODULE hMod) {
 #ifdef _DEBUG
     AllocConsole();
@@ -19,7 +19,11 @@ DWORD WINAPI InternalMain(HMODULE hMod) {
             menu::mainLoop();
         }
         menu::opened = false;   
-        Sleep(200);
+        if (g_eventListener != NULL) {
+            g_eventListener->Remove();
+            delete g_eventListener;
+        }
+        Sleep(500);
         hook::destroy();
     }
 

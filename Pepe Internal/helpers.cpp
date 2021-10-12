@@ -5,9 +5,7 @@
 #include "menu.h"
 #include "features.h"
 #include "interfaces.h"
-#include "ImGui/imgui.h"
-#include "ImGui/imgui_impl_win32.h"
-#include "ImGui/imgui_impl_dx9.h"
+#include "imgui_h.h"
 
 extern LocalPlayer* localPlayer;
 using namespace colors::rgb;

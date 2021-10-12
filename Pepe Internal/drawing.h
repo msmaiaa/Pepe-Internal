@@ -2,10 +2,7 @@
 #define DRAWING_H
 //#pragma once
 #include <string>
-
-#include "ImGui/imgui.h"
-#include "ImGui/imgui_impl_win32.h"
-#include "ImGui/imgui_impl_dx9.h"
+#include "imgui_h.h"
 
 namespace colors {
     namespace rgb {
@@ -30,6 +27,7 @@ namespace drawing {
         void text(const std::string& text, const ImVec2& pos, float size, const ImColor& color, bool center = true) noexcept;
         void rect(const ImVec2& upperLeft, const ImVec2& lowerRight, float width, const ImColor& color) noexcept;
         void circle(const ImVec2& pos, float radius, const ImColor& color) noexcept;
+        void espBox(const ImVec2& pos, float characterHeight, float distance, const ImColor& color, const int healthPercent = -1) noexcept;
     }
 }
 

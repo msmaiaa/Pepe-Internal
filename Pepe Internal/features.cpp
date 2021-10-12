@@ -1,6 +1,9 @@
 #include "features.h"
 #include "interfaces.h"
 #include "entity.h"
+#include "EventListener.h"
+#include "drawing.h"
+#include <iostream>
 
 #define FL_JUMP 6
 
@@ -10,14 +13,16 @@ namespace features {
 	uintptr_t engineModule;
 	uintptr_t* glowObject;
 	uintptr_t* clientState;
-	int input;
+	float viewMatrix[16];
+	//int input;
 
 	bool noFlashActivated,
 		isRadarActivated,
 		isBhopActivated,
 		isGlowActivated,
 		isTbotActivated,
-		isRCSActivated;
+		isRCSActivated,
+		isESPActivated;
 	int* localPlayerIndex;
 }
 void features::doRadar() {
@@ -92,6 +97,86 @@ void features::doRCS() {
 			*viewAngles = newAngle;
 		}
 		oPunch = punchAngle;
+	}
+}
+
+bool checkValidEnt(Ent* ent) {
+	if (ent == NULL) return false;
+	if (ent == localPlayer) return false;
+	if (ent->m_iHealth <= 0) return false;
+	if (ent->isDormant) return false;
+	return true;
+}
+
+bool features::WorldToScreen(vec3 pos, vec2& screen) {
+	vec4 clipCoords;
+	clipCoords.x = pos.x * viewMatrix[0] + pos.y * viewMatrix[1] + pos.z * viewMatrix[2] + viewMatrix[3];
+	clipCoords.y = pos.x * viewMatrix[4] + pos.y * viewMatrix[5] + pos.z * viewMatrix[6] + viewMatrix[7];
+	clipCoords.z = pos.x * viewMatrix[8] + pos.y * viewMatrix[9] + pos.z * viewMatrix[10] + viewMatrix[11];
+	clipCoords.w = pos.x * viewMatrix[12] + pos.y * viewMatrix[13] + pos.z * viewMatrix[14] + viewMatrix[15];
+
+	if (clipCoords.w < 0.1f)
+		return false;
+
+	vec3 NDC;
+	NDC.x = clipCoords.x / clipCoords.w;
+	NDC.y = clipCoords.y / clipCoords.w;
+	NDC.z = clipCoords.z / clipCoords.w;	
+	ImVec2 ds = ImGui::GetIO().DisplaySize;
+	float windowWidth = ds.x;
+	float windowHeight = ds.y;
+	screen.x = (windowWidth / 2 * NDC.x) + (NDC.x + windowWidth / 2);
+	screen.y = -(windowHeight / 2 * NDC.y) + (NDC.y + windowHeight / 2);
+	return true;
+}
+
+vec3 GetBonePos(Ent* ent, int bone) {
+	uintptr_t bonePtr = ent->boneMatrix;
+	vec3 bonePos;
+	bonePos.x = *(float*)(bonePtr + 0x30 * bone + 0x0C);
+	bonePos.y = *(float*)(bonePtr + 0x30 * bone + 0x1C);
+	bonePos.z = *(float*)(bonePtr + 0x30 * bone + 0x2C);
+	return bonePos;
+}
+
+vec3 TransformVec(vec3 src, vec3 ang, float d) {
+	vec3 newPos;
+	newPos.x = src.x + (cosf(TORAD(ang.y)) * d);
+	newPos.y = src.y + (sinf(TORAD(ang.y)) * d);
+	newPos.z = src.z + (tanf(TORAD(ang.x)) * d);
+	return newPos;
+}
+
+void features::doESP() {
+	if (localPlayer != NULL) {
+		ImVec2 screenSize{ ImGui::GetIO().DisplaySize };
+		for (int i = 1; i < 64; i++) {
+			Ent* curEnt = (Ent*)interfaces::ClientEntityList->GetClientEntity(i);
+			if (!(checkValidEnt(curEnt))) continue;
+
+			vec3 entHead3D = GetBonePos(curEnt, 8);
+			entHead3D.z += 8;
+			vec2 entPos2D, entHead2D;
+
+			if (WorldToScreen(curEnt->vecOrigin, entPos2D)) {
+				//velocity esp?
+				//snaplines?
+				if (WorldToScreen(entHead3D, entHead2D)) {
+					vec3 playerPos;
+					playerPos.x = localPlayer->origin.x;
+					playerPos.y = localPlayer->origin.y;
+					playerPos.z = localPlayer->origin.z;
+					vec3 tmpWorldPos;
+					tmpWorldPos.x = curEnt->origin.x;
+					tmpWorldPos.y = curEnt->origin.y;
+					tmpWorldPos.z = curEnt->origin.z;
+					float distance = playerPos.distance(tmpWorldPos);
+					if (distance > 5.0f) {
+						drawing::draw::espBox(ImVec2{ entPos2D.x , entPos2D.y }, 50.0f, distance, colors::rgb::red, curEnt->m_iHealth);
+					}
+				}
+			}
+		}
 	}
 }
 

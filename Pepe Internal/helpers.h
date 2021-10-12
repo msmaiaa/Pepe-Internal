@@ -2,6 +2,7 @@
 #include <string>
 #include <Windows.h>
 
+HWND GetProcessWindow() noexcept;
 enum class KeyState
 {
 	None = 1,

@@ -66,12 +66,13 @@ struct ItemDrawer {
 void menu::drawMenu() noexcept {
     ImGui::Begin("Pepe", nullptr);
     ImGui::Checkbox("Glowhack", &features::isGlowActivated);
+    ImGui::Checkbox("ESP", &features::isESPActivated);
     ImGui::Checkbox("Radar hack", &features::isRadarActivated);
     ImGui::Checkbox("Bhop", &features::isBhopActivated);
     ImGui::Checkbox("Triggerbot", &features::isTbotActivated);
     ImGui::Checkbox("RCS", &features::isRCSActivated);
     ImGui::Checkbox("No flash", &features::noFlashActivated);
-    ImGui::InputInt("text", &features::input);
+   // ImGui::InputInt("text", &features::input);
     ImGui::End();
 }
 
@@ -84,7 +85,7 @@ void menu::drawFrame() noexcept {
         drawMenu();
     }
     drawing::start();
-
+    if (features::isESPActivated) features::doESP();
     bool isInGame = interfaces::EngineClient->IsInGame();
     ItemDrawer tlMenu;
     tlMenu.pos = "topleft";
@@ -109,6 +110,7 @@ void menu::mainLoop() {
         }
     }
     if (interfaces::EngineClient->IsInGame()) {
+        memcpy(&features::viewMatrix, (PBYTE*)(features::clientModule + offsets::dwViewMatrix), sizeof(features::viewMatrix));
         features::localPlayerIndex = (int*)(*features::clientState + 0x17C);
         localPlayer = (LocalPlayer*)interfaces::ClientEntityList->GetClientEntity(*features::localPlayerIndex);
         if (features::noFlashActivated) {

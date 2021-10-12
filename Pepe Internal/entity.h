@@ -19,6 +19,8 @@ public:
         DEFINE_MEMBER_N(bool, isSpotted, offsets::m_bSpotted);
         DEFINE_MEMBER_N(bool, isDormant, offsets::m_bDormant);
         DEFINE_MEMBER_N(int, shotsFired, offsets::m_iShotsFired);
+        DEFINE_MEMBER_N(int, boneMatrix, offsets::m_dwBoneMatrix);
+        DEFINE_MEMBER_N(vec3, vecOrigin, offsets::m_vecOrigin);
         DEFINE_MEMBER_N(vec3, aimPunchAngle, offsets::m_aimPunchAngle);
         DEFINE_MEMBER_N(int, teamNum, offsets::m_iTeamNum);
         DEFINE_MEMBER_N(int, glowIndex, offsets::m_iGlowIndex);

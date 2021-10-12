@@ -1,4 +1,6 @@
+#include <Windows.h>
 #include "dx.h"
+#include "helpers.h"
 
 bool dx::GetD3D9Device(void** pTable) {
 	if (!pTable) return false;
@@ -12,8 +14,8 @@ bool dx::GetD3D9Device(void** pTable) {
 	D3DPRESENT_PARAMETERS d3dpp{};
 	d3dpp.Windowed = false;
 	d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
-	//d3dpp.hDeviceWindow = GetProcessWindow();
-	d3dpp.hDeviceWindow = FindWindowA("Valve001", nullptr);
+	d3dpp.hDeviceWindow = GetProcessWindow();
+	//d3dpp.hDeviceWindow = FindWindowA("Valve001", nullptr);
 
 	HRESULT dummyDevCreated{ pD3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, d3dpp.hDeviceWindow, D3DCREATE_SOFTWARE_VERTEXPROCESSING, &d3dpp, &pDummyDevice) };
 

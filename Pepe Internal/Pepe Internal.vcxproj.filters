@@ -25,6 +25,15 @@
     <Filter Include="menu">
       <UniqueIdentifier>{389ad838-8f6b-4657-9ee8-8b1a79c4a999}</UniqueIdentifier>
     </Filter>
+    <Filter Include="features">
+      <UniqueIdentifier>{3d3d7bb0-1326-408f-8d86-916ee2927901}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="interfaces">
+      <UniqueIdentifier>{1cebd6f8-7c44-4c7a-b976-5fdd05845f2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="events">
+      <UniqueIdentifier>{8151d619-0908-4651-abca-f6c4ce13f306}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="internal.h">
@@ -37,9 +46,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="entity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="features.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="dx.h">
@@ -120,9 +126,6 @@
     <ClInclude Include="const.h">
       <Filter>csgosdk</Filter>
     </ClInclude>
-    <ClInclude Include="interfaces.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="IClientEntityList.h">
       <Filter>csgosdk</Filter>
     </ClInclude>
@@ -138,6 +141,21 @@
     <ClInclude Include="menu.h">
       <Filter>menu</Filter>
     </ClInclude>
+    <ClInclude Include="features.h">
+      <Filter>features</Filter>
+    </ClInclude>
+    <ClInclude Include="interfaces.h">
+      <Filter>interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_h.h">
+      <Filter>drawing</Filter>
+    </ClInclude>
+    <ClInclude Include="IGameEvents.h">
+      <Filter>csgosdk</Filter>
+    </ClInclude>
+    <ClInclude Include="EventListener.h">
+      <Filter>events</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -147,9 +165,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="entity.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="features.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="dx.cpp">
@@ -191,14 +206,20 @@
     <ClCompile Include="..\..\..\otherstuff\csgo\Tauros-v2-master\Tauros\SourceEngine\Vector4D.cpp">
       <Filter>csgosdk</Filter>
     </ClCompile>
-    <ClCompile Include="interfaces.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="drawing.cpp">
       <Filter>drawing</Filter>
     </ClCompile>
     <ClCompile Include="menu.cpp">
       <Filter>menu</Filter>
+    </ClCompile>
+    <ClCompile Include="features.cpp">
+      <Filter>features</Filter>
+    </ClCompile>
+    <ClCompile Include="interfaces.cpp">
+      <Filter>interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="EventListener.cpp">
+      <Filter>events</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

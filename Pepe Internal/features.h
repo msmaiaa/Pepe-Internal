@@ -14,14 +14,14 @@ namespace features {
 	extern float viewMatrix[16];
 	//extern int input;
 
-	extern bool noFlashActivated,
-		isRadarActivated,
-		isBhopActivated,
-		isGlowActivated,
-		isTbotActivated,
-		isRCSActivated,
-		isESPActivated;
-	extern int* localPlayerIndex;
+	extern bool noFlashActivated;
+	extern bool isRadarActivated;
+	extern bool isBhopActivated;
+	extern bool isGlowActivated;
+	extern bool isTbotActivated;
+	extern bool isRCSActivated;
+	extern bool isESPActivated;
+	extern int* localPlayerIndex;;
 	void doRadar();
 	void doBhop();
 	void doGlow();

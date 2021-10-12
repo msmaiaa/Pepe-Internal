@@ -4,6 +4,7 @@
 #include "drawing.h"
 #include "interfaces.h"
 #include "entity.h"
+#include <iostream>
 
 using namespace colors::rgb;
 extern LocalPlayer* localPlayer;
@@ -64,14 +65,43 @@ struct ItemDrawer {
 };
 
 void menu::drawMenu() noexcept {
+    static int tabb = 0;
     ImGui::Begin("Pepe", nullptr);
-    ImGui::Checkbox("Glowhack", &features::isGlowActivated);
-    ImGui::Checkbox("ESP", &features::isESPActivated);
-    ImGui::Checkbox("Radar hack", &features::isRadarActivated);
-    ImGui::Checkbox("Bhop", &features::isBhopActivated);
-    ImGui::Checkbox("Triggerbot", &features::isTbotActivated);
-    ImGui::Checkbox("RCS", &features::isRCSActivated);
-    ImGui::Checkbox("No flash", &features::noFlashActivated);
+    {ImGui::SameLine(); 
+    if (ImGui::Button("Visuals", ImVec2(150, 25)))
+    {
+        tabb = 0;
+    }
+    ImGui::SameLine();
+    if (ImGui::Button("Triggerbot", ImVec2(150, 25)))
+    {
+        tabb = 1;
+    }    
+    ImGui::SameLine();
+    if (ImGui::Button("Misc", ImVec2(150, 25)))
+    {
+        tabb = 2;
+    }
+    }
+
+    switch (tabb) {
+    case 0: 
+        ImGui::Checkbox("ESP", &features::isESPActivated);
+        ImGui::Checkbox("Radar", &features::isRadarActivated);
+        ImGui::Checkbox("Glowhack", &features::isGlowActivated);
+        break;
+    
+    case 1: 
+        ImGui::Checkbox("Activated", &features::isTbotActivated);
+        break;
+   
+    case 2: 
+        ImGui::Checkbox("Bhop", &features::isBhopActivated);
+        ImGui::Checkbox("RCS", &features::isRCSActivated);
+        ImGui::Checkbox("No flash", &features::noFlashActivated);
+        break;
+    
+    }
    // ImGui::InputInt("text", &features::input);
     ImGui::End();
 }

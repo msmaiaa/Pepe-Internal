@@ -1,32 +1,13 @@
-﻿  Vector.cpp
-  Vector2D.cpp
-  Vector4D.cpp
-  CInput.cpp
-  drawing.cpp
-  EventListener.cpp
-  main.cpp
-  dx.cpp
-  entity.cpp
+﻿  main.cpp
   features.cpp
 G:\code\cpp\csgo\Pepe Internal\Pepe Internal\features.cpp(144,27): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 G:\code\cpp\csgo\Pepe Internal\Pepe Internal\features.cpp(145,27): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 G:\code\cpp\csgo\Pepe Internal\Pepe Internal\features.cpp(146,27): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
   helpers.cpp
-  imgui.cpp
-  imgui_demo.cpp
-  imgui_draw.cpp
-  imgui_impl_dx9.cpp
-  imgui_impl_win32.cpp
-  imgui_widgets.cpp
-  interfaces.cpp
-  internal.cpp
   menu.cpp
-G:\code\cpp\csgo\Pepe Internal\Pepe Internal\menu.cpp(42,55): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-G:\code\cpp\csgo\Pepe Internal\Pepe Internal\menu.cpp(44,29): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+G:\code\cpp\csgo\Pepe Internal\Pepe Internal\menu.cpp(43,55): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
 G:\code\cpp\csgo\Pepe Internal\Pepe Internal\menu.cpp(45,29): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+G:\code\cpp\csgo\Pepe Internal\Pepe Internal\menu.cpp(46,29): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
   Generating Code...
 G:\code\cpp\csgo\Pepe Internal\Pepe Internal\helpers.cpp(68): warning C4715: 'hook::init': not all control paths return a value
-  Compiling...
-  VMatrix.cpp
-  Generating Code...
   Pepe Internal.vcxproj -> G:\code\cpp\csgo\Pepe Internal\Debug\Pepe Internal.dll

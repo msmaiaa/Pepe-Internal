@@ -166,10 +166,13 @@
     <ClInclude Include="csgo.h" />
     <ClInclude Include="csgosdk.h" />
     <ClInclude Include="Definitions.h" />
+    <ClInclude Include="drawing.h" />
     <ClInclude Include="dx.h" />
     <ClInclude Include="entity.h" />
     <ClInclude Include="features.h" />
     <ClInclude Include="helpers.h" />
+    <ClInclude Include="IAppSystem.h" />
+    <ClInclude Include="IClientEntityList.h" />
     <ClInclude Include="IGameResources.h" />
     <ClInclude Include="ImGui\imconfig.h" />
     <ClInclude Include="ImGui\imgui.h" />
@@ -179,8 +182,11 @@
     <ClInclude Include="ImGui\imstb_rectpack.h" />
     <ClInclude Include="ImGui\imstb_textedit.h" />
     <ClInclude Include="ImGui\imstb_truetype.h" />
+    <ClInclude Include="main.h" />
+    <ClInclude Include="interfaces.h" />
     <ClInclude Include="internal.h" />
     <ClInclude Include="IVEngineClient.h" />
+    <ClInclude Include="menu.h" />
     <ClInclude Include="QAngle.h" />
     <ClInclude Include="UserCmd.h" />
     <ClInclude Include="Vector.h" />
@@ -192,7 +198,8 @@
     <ClCompile Include="..\..\..\otherstuff\csgo\Tauros-v2-master\Tauros\SourceEngine\Vector2D.cpp" />
     <ClCompile Include="..\..\..\otherstuff\csgo\Tauros-v2-master\Tauros\SourceEngine\Vector4D.cpp" />
     <ClCompile Include="CInput.cpp" />
-    <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="drawing.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="dx.cpp" />
     <ClCompile Include="entity.cpp" />
     <ClCompile Include="features.cpp" />
@@ -203,7 +210,9 @@
     <ClCompile Include="ImGui\imgui_impl_dx9.cpp" />
     <ClCompile Include="ImGui\imgui_impl_win32.cpp" />
     <ClCompile Include="ImGui\imgui_widgets.cpp" />
+    <ClCompile Include="interfaces.cpp" />
     <ClCompile Include="internal.cpp" />
+    <ClCompile Include="menu.cpp" />
     <ClCompile Include="VMatrix.cpp" />
   </ItemGroup>
   <ItemGroup>

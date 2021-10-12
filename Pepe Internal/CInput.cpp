@@ -1,5 +1,4 @@
 #include "CInput.h"
-#include "internal.h"
 
 
 CUserCmd* CInput::GetUserCmd(int nSlot, int sequence_number)

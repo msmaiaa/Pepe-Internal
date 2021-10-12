@@ -1,14 +1,25 @@
 #pragma once
-#include "_vector.h"
+//#include "main.h"
+#include <Windows.h>
 
-struct Colors {
-	float red[3] = { 1.0f, 0.0f, 0.0f };
-	float blue[3] = { 0.0f, 0.0f, 1.0f };
-	float green[3] = { 0.0f, 0.0f, 1.0f };
-};
+namespace features {
+	extern uintptr_t clientModule;
+	extern uintptr_t engineModule;
+	extern uintptr_t* glowObject;
+	extern uintptr_t* clientState;
+	extern int input;
 
-void doRadar();
-void doBhop();
-void doGlow();
-void doTbot();
-void doRCS();
+	extern bool noFlashActivated,
+		isRadarActivated,
+		isBhopActivated,
+		isGlowActivated,
+		isTbotActivated,
+		isRCSActivated;
+	extern int* localPlayerIndex;
+	void doRadar();
+	void doBhop();
+	void doGlow();
+	void doTbot();
+	void doRCS();
+	void setupModules();
+}

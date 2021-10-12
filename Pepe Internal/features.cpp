@@ -1,21 +1,28 @@
-#include "entity.h"
 #include "features.h"
-#include "csgo.h"
-#include <iostream>
-#define FL_ONGROUND (1 << 0)
+#include "interfaces.h"
+#include "entity.h"
+
 #define FL_JUMP 6
 
-extern IClientEntityList* ClientEntityList;
-extern LocalPlayer* localPlayer;
-extern uintptr_t clientModule;
-extern uintptr_t engineModule;
-extern uintptr_t* glowObject;
-Colors colors;
-static bool lastjump = false;
+LocalPlayer* localPlayer;
+namespace features {
+	uintptr_t clientModule;
+	uintptr_t engineModule;
+	uintptr_t* glowObject;
+	uintptr_t* clientState;
+	int input;
 
-void doRadar() {
+	bool noFlashActivated,
+		isRadarActivated,
+		isBhopActivated,
+		isGlowActivated,
+		isTbotActivated,
+		isRCSActivated;
+	int* localPlayerIndex;
+}
+void features::doRadar() {
 	for (short int i = 1; i < 64; i++) {
-		Ent* ent = (Ent*)ClientEntityList->GetClientEntity(i);
+		Ent* ent = (Ent*)interfaces::ClientEntityList->GetClientEntity(i);
 		if (ent != NULL && localPlayer != NULL) {
 			if (!ent->isDormant && (ent->teamNum != localPlayer->teamNum)) {
 				ent->isSpotted = true;
@@ -24,11 +31,10 @@ void doRadar() {
 	}
 };
 
-void doBhop() {
+void features::doBhop() {
 	if (localPlayer != NULL) {
 		if (localPlayer->velocity.isMoving() && localPlayer->flags & FL_ONGROUND) {
 			*(uintptr_t*)(clientModule + offsets::dwForceJump) = 5;
-			lastjump = true;
 		}
 		else {
 			*(uintptr_t*)(clientModule + offsets::dwForceJump) = 4;
@@ -36,22 +42,22 @@ void doBhop() {
 	}
 }
 
-void doGlow() {
+void features::doGlow() {
 	for (short int i = 0; i < 64; i++) {
-		Ent* ent = (Ent*)ClientEntityList->GetClientEntity(i);
+		Ent* ent = (Ent*)interfaces::ClientEntityList->GetClientEntity(i);
 		if (ent != NULL && localPlayer != NULL) {
 			GlowStruct* TGlow = (GlowStruct*)(*glowObject + (ent->glowIndex * 0x38));		
 			TGlow->alpha = 0.8f;
 			TGlow->fullBloom = false;
 			if (ent->teamNum == localPlayer->teamNum) {
-				TGlow->red = colors.blue[0];
-				TGlow->green = colors.blue[1];
-				TGlow->blue = colors.blue[2];
+				TGlow->red = 0.0f;
+				TGlow->green = 0.0f;
+				TGlow->blue = 1.0f;
 			}
 			else {
-				TGlow->red = colors.red[0];
-				TGlow->green = colors.red[1];
-				TGlow->blue = colors.red[2];
+				TGlow->red = 1.0f;
+				TGlow->green = 0.0f;
+				TGlow->blue = 0.0f;
 			}
 			TGlow->renderWhenOccluded = true;
 			TGlow->renderWhenNonOccluded = false;
@@ -59,11 +65,11 @@ void doGlow() {
 	}
 }
 
-void doTbot() {
+void features::doTbot() {
 	if (localPlayer != NULL) {
 		if (localPlayer->crosshairId > 0 && localPlayer->crosshairId <= 64) {
 			int* forceAttack = (int*)(clientModule + offsets::dwForceAttack);
-			Ent* ent = (Ent*)ClientEntityList->GetClientEntity(localPlayer->crosshairId);
+			Ent* ent = (Ent*)interfaces::ClientEntityList->GetClientEntity(localPlayer->crosshairId);
 			if (ent != NULL) {
 				*forceAttack = 5;
 				Sleep(5);
@@ -73,7 +79,7 @@ void doTbot() {
 	}
 }
 
-void doRCS() {
+void features::doRCS() {
 	static uintptr_t* clientState = (uintptr_t*)(engineModule + offsets::dwClientState);
 	static vec3* viewAngles = (vec3*)(*clientState + offsets::dwClientState_ViewAngles);
 	static vec3 oPunch{ 0, 0, 0 };
@@ -88,3 +94,10 @@ void doRCS() {
 		oPunch = punchAngle;
 	}
 }
+
+void features::setupModules() {
+	engineModule = (uintptr_t)GetModuleHandle(L"engine.dll");
+	clientModule = (uintptr_t)GetModuleHandle(L"client.dll");
+	clientState = (uintptr_t*)(engineModule + offsets::dwClientState);
+	glowObject = (uintptr_t*)(clientModule + offsets::dwGlowObjectManager);
+};

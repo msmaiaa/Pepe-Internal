@@ -1,5 +1,4 @@
 #pragma once
-#pragma once
 #include <cstdint>
 //GuidedHacking.com r0x0rs ur b0x0rs
 namespace offsets

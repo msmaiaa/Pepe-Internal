@@ -9,6 +9,7 @@ namespace config {
 	extern bool isRCSCrosshairActivated;
 	extern bool isESPActivated;
 	extern int tBotDelay;
+	extern int tBotKey;
 
 	bool loadConfig();
 	void saveConfig();

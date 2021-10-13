@@ -3,6 +3,7 @@
 #include "simdjson/simdjson.h"
 #include "simdjson/json.hpp"
 #include <fstream>
+#include <string>
 
 using json = nlohmann::json;
 using namespace simdjson;
@@ -15,6 +16,7 @@ namespace config {
 	bool isRCSActivated;
 	bool isRCSCrosshairActivated;
 	bool isESPActivated;
+	int tBotKey;
 	int tBotDelay;
 
 	bool loadConfig() {
@@ -31,6 +33,7 @@ namespace config {
 			isRCSActivated = bool(configs["rcs"]);
 			isTbotActivated = bool(configs["triggerbot"]);
 			tBotDelay = int64_t(configs["triggerbot_delay"]);
+			tBotKey = int64_t(configs["triggerbot_key"]);
 			return 0;
 		}
 		catch (simdjson_error e) {

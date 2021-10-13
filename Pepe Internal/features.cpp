@@ -67,14 +67,16 @@ void features::doGlow() {
 
 void features::doTbot() {
 	if (localPlayer != NULL) {
-		if (localPlayer->crosshairId > 0 && localPlayer->crosshairId <= 64) {
-			int* forceAttack = (int*)(clientModule + offsets::dwForceAttack);
-			Ent* ent = (Ent*)interfaces::ClientEntityList->GetClientEntity(localPlayer->crosshairId);
-			if (ent != NULL) {
-				Sleep(config::tBotDelay);
-				*forceAttack = 5;
-				Sleep(5);
-				*forceAttack = 4;
+		if (GetAsyncKeyState(config::tBotKey)) {
+			if (localPlayer->crosshairId > 0 && localPlayer->crosshairId <= 64) {
+				int* forceAttack = (int*)(clientModule + offsets::dwForceAttack);
+				Ent* ent = (Ent*)interfaces::ClientEntityList->GetClientEntity(localPlayer->crosshairId);
+				if (ent != NULL) {
+					Sleep(config::tBotDelay);
+					*forceAttack = 5;
+					Sleep(5);
+					*forceAttack = 4;
+				}
 			}
 		}
 	}
@@ -99,15 +101,14 @@ void features::doRCS() {
 void features::doRCSCrosshair() {
 	if (localPlayer != NULL) {
 		vec3 punchAngle = localPlayer->aimPunchAngle;
-		static ImVec2 display{ ImGui::GetIO().DisplaySize };
-		static ImVec2 crosshair2D;
+		ImVec2 display{ ImGui::GetIO().DisplaySize };
+		ImVec2 crosshair2D;
 		crosshair2D.x = display.x / 2 - (display.x / 90 * punchAngle.y);
 		crosshair2D.y = display.y / 2 + (display.y / 90 * punchAngle.x);
 		ImVec2 from = crosshair2D;
 		//
 		drawing::draw::line(ImVec2(from.x, from.y - 4), ImVec2(from.x, from.y + 4), 1.0f, colors::rgb::red);
 		drawing::draw::line(ImVec2(from.x + 4, from.y), ImVec2(from.x - 4, from.y), 1.0f, colors::rgb::red);
-		std::cout << punchAngle.x << std::endl;
 	}
 }
 

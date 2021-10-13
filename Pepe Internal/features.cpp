@@ -179,7 +179,7 @@ void features::doESP() {
 					tmpWorldPos.z = curEnt->origin.z;
 					float distance = playerPos.distance(tmpWorldPos);
 					if (distance > 5.0f) {
-						drawing::draw::espBox(ImVec2{ entPos2D.x , entPos2D.y }, 50.0f, distance, colors::rgb::red, curEnt->m_iHealth);
+						drawing::draw::espBox(ImVec2(entPos2D.x, entPos2D.y), ImVec2(entHead2D.x, entHead2D.y), 2, colors::rgb::red, curEnt->m_iHealth);
 					}
 				}
 			}

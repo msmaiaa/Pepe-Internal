@@ -27,7 +27,7 @@ namespace drawing {
         void text(const std::string& text, const ImVec2& pos, float size, const ImColor& color, bool center = true) noexcept;
         void rect(const ImVec2& upperLeft, const ImVec2& lowerRight, float width, const ImColor& color) noexcept;
         void circle(const ImVec2& pos, float radius, const ImColor& color) noexcept;
-        void espBox(const ImVec2& pos, float characterHeight, float distance, const ImColor& color, const int healthPercent = -1) noexcept;
+        void espBox(const ImVec2& top, const ImVec2 bot, int thickness, const ImColor& color, const int healthPercent = -1) noexcept;
     }
 }
 

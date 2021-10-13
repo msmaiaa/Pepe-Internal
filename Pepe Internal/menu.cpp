@@ -118,10 +118,6 @@ void menu::drawMenu() noexcept {
         ImGui::Checkbox("No flash", &features::noFlashActivated);
         break;
     case 3:
-        break;
-    case 4:
-        break;
-    case 5:
     {
         ImGui::Button("Load config", ImVec2(100, 25));
         ImGui::Button("Save config", ImVec2(100, 25));
@@ -142,14 +138,15 @@ void menu::drawFrame() noexcept {
     drawing::start();
     if (features::isESPActivated) features::doESP();
     bool isInGame = interfaces::EngineClient->IsInGame();
-    player_info_s playerInfo;
-    if (interfaces::EngineClient->GetPlayerInfo(*features::localPlayerIndex, &playerInfo) != NULL) {
-        std::cout << playerInfo.steamID64 << std::endl;
-    }
     ItemDrawer tlMenu;
     tlMenu.pos = "topleft";
+    player_info_s playerInfo;
+    if (interfaces::EngineClient->GetPlayerInfo(*features::localPlayerIndex, &playerInfo)) {
+        std::string n(playerInfo.szName);
+        std::string s(playerInfo.szSteamID);
+        tlMenu.add(n + ":" + s, green);
+    }
     ImColor buff = isInGame ? green : red;
-    tlMenu.add(isInGame ? "In game" : "Not in game", buff);
     tlMenu.add(localPlayer != NULL ? "LocalPlayer: 0x" + hexToStr((int)localPlayer) : "LocalPlayer not found", localPlayer != NULL ? green : red);
     tlMenu.send();
 

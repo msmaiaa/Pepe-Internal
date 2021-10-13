@@ -18,13 +18,14 @@ namespace features {
 	float viewMatrix[16];
 	//int input;
 
-	bool noFlashActivated,
-		isRadarActivated,
-		isBhopActivated,
-		isGlowActivated,
-		isTbotActivated,
-		isRCSActivated,
-		isESPActivated;
+	bool noFlashActivated;
+	bool isRadarActivated;
+	bool isBhopActivated;
+	bool isGlowActivated;
+	bool isTbotActivated;
+	bool isRCSActivated;
+	bool isRCSCrosshairActivated;
+	bool isESPActivated;
 	int tBotDelay;
 	int* localPlayerIndex;
 }
@@ -106,6 +107,23 @@ void features::doRCS() {
 		oPunch = punchAngle;
 	}
 }
+
+void features::doRCSCrosshair() {
+
+	vec3 punchAngle = localPlayer->aimPunchAngle;
+	if (localPlayer != NULL) {
+		static ImVec2 display{ ImGui::GetIO().DisplaySize };
+		static ImVec2 crosshair2D;
+		crosshair2D.x = display.x / 2 - (display.x / 90 * punchAngle.y);
+		crosshair2D.y = display.y / 2 + (display.y / 90 * punchAngle.x);
+		ImVec2 from = crosshair2D;
+		//
+		drawing::draw::line(ImVec2(from.x, from.y - 4), ImVec2(from.x, from.y + 4), 1.0f, colors::rgb::red);
+		drawing::draw::line(ImVec2(from.x + 4, from.y), ImVec2(from.x - 4, from.y), 1.0f, colors::rgb::red);
+		std::cout << punchAngle.x << std::endl;
+	}
+}
+
 
 bool checkValidEnt(Ent* ent) {
 	if (ent == NULL) return false;

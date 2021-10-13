@@ -22,6 +22,7 @@ namespace features {
 	extern bool isGlowActivated;
 	extern bool isTbotActivated;
 	extern bool isRCSActivated;
+	extern bool isRCSCrosshairActivated;
 	extern bool isESPActivated;
 	extern int tBotDelay;
 	extern int* localPlayerIndex;;
@@ -30,6 +31,7 @@ namespace features {
 	void doGlow();
 	void doTbot();
 	void doRCS();
+	void doRCSCrosshair();
 	void doESP();
 	void setupModules();
 	bool WorldToScreen(vec3 pos, vec2& screen);

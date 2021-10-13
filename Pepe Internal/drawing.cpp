@@ -18,7 +18,7 @@ void drawing::end() noexcept {
 }
 
 void drawing::draw::line(const ImVec2& from, const ImVec2& to, float width, const ImColor& color) noexcept {
-    ImGui::GetWindowDrawList()->AddLine(from, to, black, width + 2);
+    //ImGui::GetWindowDrawList()->AddLine(from, to, black, width + 2);
     ImGui::GetWindowDrawList()->AddLine(from, to, color, width);
 }
 

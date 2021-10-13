@@ -103,6 +103,7 @@ void menu::drawMenu() noexcept {
         ImGui::Checkbox("ESP", &features::isESPActivated);
         ImGui::Checkbox("Radar", &features::isRadarActivated);
         ImGui::Checkbox("Glowhack", &features::isGlowActivated);        
+        ImGui::Checkbox("RCS Crosshair", &features::isRCSCrosshairActivated);
         break;
     
     case 1: 
@@ -137,6 +138,8 @@ void menu::drawFrame() noexcept {
     }
     drawing::start();
     if (features::isESPActivated) features::doESP();
+    if (features::isRCSCrosshairActivated) features::doRCSCrosshair();
+    ///topleft menu
     bool isInGame = interfaces::EngineClient->IsInGame();
     ItemDrawer tlMenu;
     tlMenu.pos = "topleft";
@@ -149,7 +152,7 @@ void menu::drawFrame() noexcept {
     ImColor buff = isInGame ? green : red;
     tlMenu.add(localPlayer != NULL ? "LocalPlayer: 0x" + hexToStr((int)localPlayer) : "LocalPlayer not found", localPlayer != NULL ? green : red);
     tlMenu.send();
-
+    ///
     drawing::end();
 }
 

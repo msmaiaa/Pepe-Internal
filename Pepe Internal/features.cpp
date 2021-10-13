@@ -4,6 +4,7 @@
 #include "EventListener.h"
 #include "drawing.h"
 #include <iostream>
+#include <chrono>
 
 #define FL_JUMP 6
 
@@ -13,6 +14,7 @@ namespace features {
 	uintptr_t engineModule;
 	uintptr_t* glowObject;
 	uintptr_t* clientState;
+	C_PlayerResource* PlayerResource;
 	float viewMatrix[16];
 	//int input;
 
@@ -23,6 +25,7 @@ namespace features {
 		isTbotActivated,
 		isRCSActivated,
 		isESPActivated;
+	int tBotDelay;
 	int* localPlayerIndex;
 }
 void features::doRadar() {
@@ -72,10 +75,14 @@ void features::doGlow() {
 
 void features::doTbot() {
 	if (localPlayer != NULL) {
+		//static std::chrono::duration<float> deltaTime;
+		//static std::chrono::time_point<std::chrono::steady_clock> lastTime;
+		//float lockTime{ 0 };
 		if (localPlayer->crosshairId > 0 && localPlayer->crosshairId <= 64) {
 			int* forceAttack = (int*)(clientModule + offsets::dwForceAttack);
 			Ent* ent = (Ent*)interfaces::ClientEntityList->GetClientEntity(localPlayer->crosshairId);
 			if (ent != NULL) {
+				Sleep(tBotDelay);
 				*forceAttack = 5;
 				Sleep(5);
 				*forceAttack = 4;
@@ -185,4 +192,6 @@ void features::setupModules() {
 	clientModule = (uintptr_t)GetModuleHandle(L"client.dll");
 	clientState = (uintptr_t*)(engineModule + offsets::dwClientState);
 	glowObject = (uintptr_t*)(clientModule + offsets::dwGlowObjectManager);
+	PlayerResource = (C_PlayerResource*)(clientModule + offsets::dwPlayerResource);
+	localPlayerIndex = (int*)(*clientState + 0x17C);
 };

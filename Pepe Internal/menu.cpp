@@ -66,33 +66,50 @@ struct ItemDrawer {
 
 void menu::drawMenu() noexcept {
     static int tabb = 0;
+    static ImVec4 buttonActive = ImVec4(0.231f, 0.247f, 0.250f, 1.00f);
+    static ImVec4 buttonDefault = ImVec4(0.490f, 0.490f, 0.490f, 1.00f);
+    ImGuiStyle* style = &ImGui::GetStyle();
     ImGui::Begin("Pepe", nullptr);
-    {ImGui::SameLine(); 
-    if (ImGui::Button("Visuals", ImVec2(150, 25)))
+    const char* tabs[] = {
+        "Visuals",
+        "Triggerbot",
+        "Misc",
+        "Config"
+    };
+    for (int i = 0; i < IM_ARRAYSIZE(tabs); i++)
     {
-        tabb = 0;
+        int distance = i == tabb ? 0 : i > tabb ? i - tabb : tabb - i;
+
+        ImGui::GetStyle().Colors[ImGuiCol_Button] = ImVec4(
+            buttonActive.x - (distance * 0.055f),
+            buttonActive.y - (distance * 0.055f),
+            buttonActive.z - (distance * 0.055f),
+            buttonActive.w
+        );
+
+        if (ImGui::Button(tabs[i], ImVec2(ImGui::GetWindowSize().x / IM_ARRAYSIZE(tabs) - 9, 0)))
+            tabb = i;
+
+        ImGui::GetStyle().Colors[ImGuiCol_Button] = buttonDefault;
+
+        if (i < IM_ARRAYSIZE(tabs) - 1)
+            ImGui::SameLine();
     }
-    ImGui::SameLine();
-    if (ImGui::Button("Triggerbot", ImVec2(150, 25)))
-    {
-        tabb = 1;
-    }    
-    ImGui::SameLine();
-    if (ImGui::Button("Misc", ImVec2(150, 25)))
-    {
-        tabb = 2;
-    }
-    }
+
+    ImGui::Separator();
 
     switch (tabb) {
     case 0: 
         ImGui::Checkbox("ESP", &features::isESPActivated);
         ImGui::Checkbox("Radar", &features::isRadarActivated);
-        ImGui::Checkbox("Glowhack", &features::isGlowActivated);
+        ImGui::Checkbox("Glowhack", &features::isGlowActivated);        
         break;
     
     case 1: 
-        ImGui::Checkbox("Activated", &features::isTbotActivated);
+        ImGui::Checkbox("Toggled", &features::isTbotActivated);
+        ImGui::PushItemWidth(22.0f);
+        ImGui::InputInt("Delay", &features::tBotDelay, 0);
+        ImGui::PopItemWidth();
         break;
    
     case 2: 
@@ -100,9 +117,17 @@ void menu::drawMenu() noexcept {
         ImGui::Checkbox("RCS", &features::isRCSActivated);
         ImGui::Checkbox("No flash", &features::noFlashActivated);
         break;
-    
+    case 3:
+        break;
+    case 4:
+        break;
+    case 5:
+    {
+        ImGui::Button("Load config", ImVec2(100, 25));
+        ImGui::Button("Save config", ImVec2(100, 25));
     }
-   // ImGui::InputInt("text", &features::input);
+        break;
+    }
     ImGui::End();
 }
 
@@ -117,6 +142,10 @@ void menu::drawFrame() noexcept {
     drawing::start();
     if (features::isESPActivated) features::doESP();
     bool isInGame = interfaces::EngineClient->IsInGame();
+    player_info_s playerInfo;
+    if (interfaces::EngineClient->GetPlayerInfo(*features::localPlayerIndex, &playerInfo) != NULL) {
+        std::cout << playerInfo.steamID64 << std::endl;
+    }
     ItemDrawer tlMenu;
     tlMenu.pos = "topleft";
     ImColor buff = isInGame ? green : red;

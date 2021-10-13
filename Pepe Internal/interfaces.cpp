@@ -7,7 +7,6 @@ namespace interfaces {
 	IClientEntityList* ClientEntityList;
 	IVEngineClient* EngineClient;
 	CInput* Input;
-	//C_PlayerResource* PlayerResource;
 	ISurface* Surface;
 	IGameEventManager2* GameEventManager;
 }

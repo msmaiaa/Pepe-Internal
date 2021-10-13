@@ -16,6 +16,8 @@ namespace config {
 	bool isRCSActivated;
 	bool isRCSCrosshairActivated;
 	bool isESPActivated;
+	bool esp_allies;
+	bool glow_allies;
 	int tBotKey;
 	int tBotDelay;
 
@@ -24,8 +26,10 @@ namespace config {
 			ondemand::parser parser;
 			padded_string json = padded_string::load("c:\\pepe\\pepe_csgo.json");
 			ondemand::document configs = parser.iterate(json);
-			isGlowActivated = bool(configs["glowhack"]);
+			isGlowActivated = bool(configs["glow"]);
+			glow_allies = bool(configs["glow_allies"]);
 			isESPActivated = bool(configs["esp"]);
+			esp_allies = bool(configs["esp_allies"]);
 			isRadarActivated = bool(configs["radar"]);
 			isRCSCrosshairActivated = bool(configs["rcs_crosshair"]);
 			isBhopActivated = bool(configs["bhop"]);
@@ -42,15 +46,18 @@ namespace config {
 	};
 	void saveConfig() {
 		json j = {
-		  { "glowhack", isGlowActivated },
+		  { "glow", isGlowActivated },
+		  { "glow_allies", glow_allies },
 		  { "esp", isESPActivated },
+		  { "esp_allies", esp_allies},
 		  { "radar", isRadarActivated },
 		  { "rcs_crosshair", isRCSCrosshairActivated },
 		  { "bhop", isBhopActivated },
 		  { "no_flash", noFlashActivated },
 		  { "rcs", isRCSActivated },
 		  { "triggerbot", isTbotActivated },
-		  { "triggerbot_delay", tBotDelay }
+		  { "triggerbot_delay", tBotDelay },
+		  { "triggerbot_key", tBotKey },
 		};
 		std::ofstream output("c:\\pepe\\pepe_csgo.json");
 		output << std::setw(4) << j << std::endl;

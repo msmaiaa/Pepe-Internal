@@ -101,9 +101,11 @@ void menu::drawMenu() noexcept {
 
     switch (tabb) {
     case 0: 
+        ImGui::Checkbox("Glow", &config::isGlowActivated);        
+        ImGui::Checkbox("Glow allies", &config::glow_allies);        
         ImGui::Checkbox("ESP", &config::isESPActivated);
+        ImGui::Checkbox("Show allies on ESP", &config::esp_allies);
         ImGui::Checkbox("Radar", &config::isRadarActivated);
-        ImGui::Checkbox("Glowhack", &config::isGlowActivated);        
         ImGui::Checkbox("RCS Crosshair", &config::isRCSCrosshairActivated);
         break;
     

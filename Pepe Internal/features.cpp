@@ -46,6 +46,7 @@ void features::doGlow() {
 	for (short int i = 0; i < 64; i++) {
 		Ent* ent = (Ent*)interfaces::ClientEntityList->GetClientEntity(i);
 		if (ent != NULL && localPlayer != NULL) {
+			if (ent->teamNum == localPlayer->teamNum && !config::glow_allies) continue;
 			GlowStruct* TGlow = (GlowStruct*)(*glowObject + (ent->glowIndex * 0x38));		
 			TGlow->alpha = 0.8f;
 			TGlow->fullBloom = false;
@@ -69,13 +70,15 @@ void features::doTbot() {
 	if (localPlayer != NULL) {
 		if (GetAsyncKeyState(config::tBotKey)) {
 			if (localPlayer->crosshairId > 0 && localPlayer->crosshairId <= 64) {
-				int* forceAttack = (int*)(clientModule + offsets::dwForceAttack);
 				Ent* ent = (Ent*)interfaces::ClientEntityList->GetClientEntity(localPlayer->crosshairId);
-				if (ent != NULL) {
-					Sleep(config::tBotDelay);
-					*forceAttack = 5;
-					Sleep(5);
-					*forceAttack = 4;
+				if (ent->teamNum != localPlayer->teamNum) {
+					int* forceAttack = (int*)(clientModule + offsets::dwForceAttack);
+					if (ent != NULL) {
+						Sleep(config::tBotDelay);
+						*forceAttack = 5;
+						Sleep(5);
+						*forceAttack = 4;
+					}
 				}
 			}
 		}
@@ -166,7 +169,7 @@ void features::doESP() {
 		for (int i = 1; i < 64; i++) {
 			Ent* curEnt = (Ent*)interfaces::ClientEntityList->GetClientEntity(i);
 			if (!(checkValidEnt(curEnt))) continue;
-
+			if (curEnt->teamNum == localPlayer->teamNum && !config::esp_allies) continue;
 			vec3 entHead3D = GetBonePos(curEnt, 8);
 			entHead3D.z += 8;
 			vec2 entPos2D, entHead2D;

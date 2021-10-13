@@ -4,6 +4,7 @@
 #include "drawing.h"
 #include "interfaces.h"
 #include "entity.h"
+#include "config.h"
 #include <iostream>
 
 using namespace colors::rgb;
@@ -100,28 +101,32 @@ void menu::drawMenu() noexcept {
 
     switch (tabb) {
     case 0: 
-        ImGui::Checkbox("ESP", &features::isESPActivated);
-        ImGui::Checkbox("Radar", &features::isRadarActivated);
-        ImGui::Checkbox("Glowhack", &features::isGlowActivated);        
-        ImGui::Checkbox("RCS Crosshair", &features::isRCSCrosshairActivated);
+        ImGui::Checkbox("ESP", &config::isESPActivated);
+        ImGui::Checkbox("Radar", &config::isRadarActivated);
+        ImGui::Checkbox("Glowhack", &config::isGlowActivated);        
+        ImGui::Checkbox("RCS Crosshair", &config::isRCSCrosshairActivated);
         break;
     
     case 1: 
-        ImGui::Checkbox("Toggled", &features::isTbotActivated);
+        ImGui::Checkbox("Toggled", &config::isTbotActivated);
         ImGui::PushItemWidth(22.0f);
-        ImGui::InputInt("Delay", &features::tBotDelay, 0);
+        ImGui::InputInt("Delay", &config::tBotDelay, 0);
         ImGui::PopItemWidth();
         break;
    
     case 2: 
-        ImGui::Checkbox("Bhop", &features::isBhopActivated);
-        ImGui::Checkbox("RCS", &features::isRCSActivated);
-        ImGui::Checkbox("No flash", &features::noFlashActivated);
+        ImGui::Checkbox("Bhop", &config::isBhopActivated);
+        ImGui::Checkbox("RCS", &config::isRCSActivated);
+        ImGui::Checkbox("No flash", &config::noFlashActivated);
         break;
     case 3:
     {
-        ImGui::Button("Load config", ImVec2(100, 25));
-        ImGui::Button("Save config", ImVec2(100, 25));
+        if (ImGui::Button("Load config", ImVec2(100, 25))) {
+            config::loadConfig();
+        };
+        if (ImGui::Button("Save config", ImVec2(100, 25))) {
+            config::saveConfig();
+        };
     }
         break;
     }
@@ -137,8 +142,8 @@ void menu::drawFrame() noexcept {
         drawMenu();
     }
     drawing::start();
-    if (features::isESPActivated) features::doESP();
-    if (features::isRCSCrosshairActivated) features::doRCSCrosshair();
+    if (config::isESPActivated) features::doESP();
+    if (config::isRCSCrosshairActivated) features::doRCSCrosshair();
     ///topleft menu
     bool isInGame = interfaces::EngineClient->IsInGame();
     ItemDrawer tlMenu;
@@ -156,7 +161,12 @@ void menu::drawFrame() noexcept {
     drawing::end();
 }
 
+int started = false;
 void menu::mainLoop() {
+    if (!started) {
+        config::loadConfig();
+        started = true;
+    }
     if (GetAsyncKeyState(VK_INSERT) & 1) {
         opened = !opened;
         if (interfaces::Surface != NULL) {
@@ -172,16 +182,16 @@ void menu::mainLoop() {
         memcpy(&features::viewMatrix, (PBYTE*)(features::clientModule + offsets::dwViewMatrix), sizeof(features::viewMatrix));
         features::localPlayerIndex = (int*)(*features::clientState + 0x17C);
         localPlayer = (LocalPlayer*)interfaces::ClientEntityList->GetClientEntity(*features::localPlayerIndex);
-        if (features::noFlashActivated) {
+        if (config::noFlashActivated) {
             if (localPlayer != NULL) {
                 localPlayer->resetFlashDuration();
             }
         }
-        if (features::isRadarActivated) features::doRadar();
-        if (GetAsyncKeyState(VK_SPACE) & 0x8000 && features::isBhopActivated) features::doBhop();
-        if (features::isGlowActivated) features::doGlow();
-        if (features::isTbotActivated) features::doTbot();
-        if (features::isRCSActivated) features::doRCS();
+        if (config::isRadarActivated) features::doRadar();
+        if (GetAsyncKeyState(VK_SPACE) & 0x8000 && config::isBhopActivated) features::doBhop();
+        if (config::isGlowActivated) features::doGlow();
+        if (config::isTbotActivated) features::doTbot();
+        if (config::isRCSActivated) features::doRCS();
     }
     Sleep(1);
 }

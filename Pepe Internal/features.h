@@ -14,17 +14,6 @@ namespace features {
 	extern uintptr_t* clientState;
 	extern C_PlayerResource* PlayerResource;
 	extern float viewMatrix[16];
-	//extern int input;
-
-	extern bool noFlashActivated;
-	extern bool isRadarActivated;
-	extern bool isBhopActivated;
-	extern bool isGlowActivated;
-	extern bool isTbotActivated;
-	extern bool isRCSActivated;
-	extern bool isRCSCrosshairActivated;
-	extern bool isESPActivated;
-	extern int tBotDelay;
 	extern int* localPlayerIndex;;
 	void doRadar();
 	void doBhop();

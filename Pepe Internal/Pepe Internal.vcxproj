@@ -72,7 +72,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(IncludePath);$(DXSDK_DIR)Include</IncludePath>
+    <IncludePath>.\config4cpp\include\;$(IncludePath);$(DXSDK_DIR)Include</IncludePath>
     <LibraryPath>$(LibraryPath);$(DXSDK_DIR)Lib\x86</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -161,6 +161,7 @@
     <ClInclude Include="..\..\..\otherstuff\csgo\Tauros-v2-master\Tauros\SourceEngine\Vector4D.h" />
     <ClInclude Include="CInput.h" />
     <ClInclude Include="Color.h" />
+    <ClInclude Include="config.h" />
     <ClInclude Include="const.h" />
     <ClInclude Include="CPlayerResource.h" />
     <ClInclude Include="csgo.h" />
@@ -191,6 +192,7 @@
     <ClInclude Include="IVEngineClient.h" />
     <ClInclude Include="menu.h" />
     <ClInclude Include="QAngle.h" />
+    <ClInclude Include="simdjson\simdjson.h" />
     <ClInclude Include="UserCmd.h" />
     <ClInclude Include="Vector.h" />
     <ClInclude Include="_vector.h" />
@@ -201,6 +203,7 @@
     <ClCompile Include="..\..\..\otherstuff\csgo\Tauros-v2-master\Tauros\SourceEngine\Vector2D.cpp" />
     <ClCompile Include="..\..\..\otherstuff\csgo\Tauros-v2-master\Tauros\SourceEngine\Vector4D.cpp" />
     <ClCompile Include="CInput.cpp" />
+    <ClCompile Include="config.cpp" />
     <ClCompile Include="drawing.cpp" />
     <ClCompile Include="EventListener.cpp" />
     <ClCompile Include="main.cpp" />
@@ -217,6 +220,7 @@
     <ClCompile Include="interfaces.cpp" />
     <ClCompile Include="internal.cpp" />
     <ClCompile Include="menu.cpp" />
+    <ClCompile Include="simdjson\simdjson.cpp" />
     <ClCompile Include="VMatrix.cpp" />
   </ItemGroup>
   <ItemGroup>

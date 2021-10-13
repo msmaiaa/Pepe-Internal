@@ -1,5 +1,5 @@
-﻿  features.cpp
-G:\code\cpp\csgo\Pepe Internal\Pepe Internal\features.cpp(169,27): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-G:\code\cpp\csgo\Pepe Internal\Pepe Internal\features.cpp(170,27): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-G:\code\cpp\csgo\Pepe Internal\Pepe Internal\features.cpp(171,27): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+﻿  menu.cpp
+G:\code\cpp\csgo\Pepe Internal\Pepe Internal\menu.cpp(44,55): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+G:\code\cpp\csgo\Pepe Internal\Pepe Internal\menu.cpp(46,29): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+G:\code\cpp\csgo\Pepe Internal\Pepe Internal\menu.cpp(47,29): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
   Pepe Internal.vcxproj -> G:\code\cpp\csgo\Pepe Internal\Debug\Pepe Internal.dll

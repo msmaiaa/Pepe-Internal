@@ -3,6 +3,7 @@
 #include "entity.h"
 #include "EventListener.h"
 #include "drawing.h"
+#include "config.h"
 #include <iostream>
 #include <chrono>
 
@@ -17,16 +18,6 @@ namespace features {
 	C_PlayerResource* PlayerResource;
 	float viewMatrix[16];
 	//int input;
-
-	bool noFlashActivated;
-	bool isRadarActivated;
-	bool isBhopActivated;
-	bool isGlowActivated;
-	bool isTbotActivated;
-	bool isRCSActivated;
-	bool isRCSCrosshairActivated;
-	bool isESPActivated;
-	int tBotDelay;
 	int* localPlayerIndex;
 }
 void features::doRadar() {
@@ -76,14 +67,11 @@ void features::doGlow() {
 
 void features::doTbot() {
 	if (localPlayer != NULL) {
-		//static std::chrono::duration<float> deltaTime;
-		//static std::chrono::time_point<std::chrono::steady_clock> lastTime;
-		//float lockTime{ 0 };
 		if (localPlayer->crosshairId > 0 && localPlayer->crosshairId <= 64) {
 			int* forceAttack = (int*)(clientModule + offsets::dwForceAttack);
 			Ent* ent = (Ent*)interfaces::ClientEntityList->GetClientEntity(localPlayer->crosshairId);
 			if (ent != NULL) {
-				Sleep(tBotDelay);
+				Sleep(config::tBotDelay);
 				*forceAttack = 5;
 				Sleep(5);
 				*forceAttack = 4;
@@ -109,9 +97,8 @@ void features::doRCS() {
 }
 
 void features::doRCSCrosshair() {
-
-	vec3 punchAngle = localPlayer->aimPunchAngle;
 	if (localPlayer != NULL) {
+		vec3 punchAngle = localPlayer->aimPunchAngle;
 		static ImVec2 display{ ImGui::GetIO().DisplaySize };
 		static ImVec2 crosshair2D;
 		crosshair2D.x = display.x / 2 - (display.x / 90 * punchAngle.y);

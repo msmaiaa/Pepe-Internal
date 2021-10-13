@@ -34,6 +34,9 @@
     <Filter Include="events">
       <UniqueIdentifier>{8151d619-0908-4651-abca-f6c4ce13f306}</UniqueIdentifier>
     </Filter>
+    <Filter Include="config">
+      <UniqueIdentifier>{70c230a2-aa8d-4fe7-80c4-46752e638413}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="internal.h">
@@ -156,6 +159,12 @@
     <ClInclude Include="EventListener.h">
       <Filter>events</Filter>
     </ClInclude>
+    <ClInclude Include="config.h">
+      <Filter>config</Filter>
+    </ClInclude>
+    <ClInclude Include="simdjson\simdjson.h">
+      <Filter>config</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -220,6 +229,12 @@
     </ClCompile>
     <ClCompile Include="EventListener.cpp">
       <Filter>events</Filter>
+    </ClCompile>
+    <ClCompile Include="config.cpp">
+      <Filter>config</Filter>
+    </ClCompile>
+    <ClCompile Include="simdjson\simdjson.cpp">
+      <Filter>config</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

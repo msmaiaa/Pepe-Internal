@@ -1,8 +1,12 @@
 #pragma once
 namespace config {
+	//
 	extern bool noFlashActivated;
 	extern bool isRadarActivated;
 	extern bool isBhopActivated;
+	extern bool isFovActivated;
+	extern int fovAmount;
+	//
 	extern bool isGlowActivated;
 	extern bool glow_allies;
 	extern bool isRCSActivated;

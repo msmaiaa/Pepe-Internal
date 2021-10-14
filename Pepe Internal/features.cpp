@@ -304,15 +304,25 @@ Ent* GetClosestEnemy() {
 }
 
 void features::doAimbot() {
-	if (GetAsyncKeyState(config::aimbotKey)) {
-		Ent* bestEnemy = getBestEnemy();
-		if (bestEnemy != NULL) {
-			aimAt(GetBonePos(bestEnemy, 8));
+	if (localPlayer != NULL) {
+		if (GetAsyncKeyState(config::aimbotKey)) {
+			Ent* bestEnemy = getBestEnemy();
+			if (bestEnemy != NULL) {
+				aimAt(GetBonePos(bestEnemy, 8));
+			}
+			/*Ent* closestEnt = GetClosestEnemy();
+			if (closestEnt) {
+				aimAt(GetBonePos(closestEnt, 8));
+			}*/
 		}
-		/*Ent* closestEnt = GetClosestEnemy();
-		if (closestEnt) {
-			aimAt(GetBonePos(closestEnt, 8));
-		}*/
+	}
+}
+
+void features::doFov() {
+	if (localPlayer != NULL) {
+		if (localPlayer->fovAmount != config::fovAmount) {
+			localPlayer->fovAmount = config::fovAmount;
+		}
 	}
 }
 
@@ -324,3 +334,9 @@ void features::setupModules() {
 	PlayerResource = (C_PlayerResource*)(clientModule + offsets::dwPlayerResource);
 	localPlayerIndex = (int*)(*clientState + 0x17C);
 };
+
+void features::reset() {
+	if (localPlayer != NULL) {
+		localPlayer->fovAmount = 90;
+	}
+}

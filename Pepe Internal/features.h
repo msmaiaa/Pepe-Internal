@@ -17,6 +17,7 @@ namespace features {
 	extern float viewMatrix[16];
 	extern int* localPlayerIndex;;
 	void doRadar();
+	void doFov();
 	void doBhop();
 	void doGlow();
 	void doTbot();
@@ -26,6 +27,8 @@ namespace features {
 	void aimAt(vec3 target);
 	Ent* getBestEnemy();
 	void doAimbot();
+	//
 	void setupModules();
+	void reset();
 	bool WorldToScreen(vec3 pos, vec2& screen);
 }

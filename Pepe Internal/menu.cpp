@@ -65,6 +65,12 @@ struct ItemDrawer {
     }
 };
 
+void drawIntInput(const char* label, int& v, float width) {
+    ImGui::PushItemWidth(width);
+    ImGui::InputInt(label, &v, 0);
+    ImGui::PopItemWidth();
+}
+
 void menu::drawMenu() noexcept {
     static int tabb = 0;
     static ImVec4 buttonActive = ImVec4(0.231f, 0.247f, 0.250f, 1.00f);
@@ -74,6 +80,7 @@ void menu::drawMenu() noexcept {
     const char* tabs[] = {
         "Visuals",
         "Triggerbot",
+        "Aimbot",
         "Misc",
         "Config"
     };
@@ -101,6 +108,7 @@ void menu::drawMenu() noexcept {
 
     switch (tabb) {
     case 0: 
+        //VISUALS
         ImGui::Checkbox("Glow", &config::isGlowActivated);        
         ImGui::Checkbox("Glow allies", &config::glow_allies);        
         ImGui::Checkbox("ESP", &config::isESPActivated);
@@ -111,36 +119,38 @@ void menu::drawMenu() noexcept {
         break;
     
     case 1: 
-        ImGui::Checkbox("Toggled", &config::isTbotActivated);
-        ImGui::PushItemWidth(22.0f);
-        ImGui::InputInt("Delay", &config::tBotDelay, 0);
-        ImGui::PopItemWidth();
-        ImGui::Checkbox("Aimbot", &config::isAimbotActivated);
-        ImGui::PushItemWidth(22.0f);
-        ImGui::InputInt("Aimbot fov", &config::aimbotFov, 0);
-        ImGui::PopItemWidth();
-        ImGui::Checkbox("Smooth aimbot", &config::smoothAimbot);
-        if (config::smoothAimbot) {
-            ImGui::PushItemWidth(22.0f);
-            ImGui::InputInt("Aimbot speed", &config::aimbotSpeed, 0);
-            ImGui::PopItemWidth();
-        }
+        //TRIGGER
+        ImGui::Checkbox("Triggerbot toggled", &config::isTbotActivated);
+        drawIntInput("Delay", config::tBotDelay, 25.0f);
         break;
    
     case 2: 
+        //AIMBOT
+        ImGui::Checkbox("Aimbot toggled", &config::isAimbotActivated);
+        drawIntInput("Aimbot fov", config::aimbotFov, 25.0f);
+        ImGui::Checkbox("Smooth aimbot", &config::smoothAimbot);
+        if (config::smoothAimbot) {
+            drawIntInput("Aimbot speed", config::aimbotSpeed, 25.0f);
+        }
+        break;
+    case 3:
+        //MISC
         ImGui::Checkbox("Bhop", &config::isBhopActivated);
         ImGui::Checkbox("RCS", &config::isRCSActivated);
         ImGui::Checkbox("No flash", &config::noFlashActivated);
+        ImGui::Checkbox("Fov changer", &config::isFovActivated);
+        if (config::isFovActivated) {
+            drawIntInput("Fov", config::fovAmount, 30.0f);
+        }
         break;
-    case 3:
-    {
+    case 4:
+        //CONFIG
         if (ImGui::Button("Load config", ImVec2(100, 25))) {
             config::loadConfig();
         };
         if (ImGui::Button("Save config", ImVec2(100, 25))) {
             config::saveConfig();
         };
-    }
         break;
     }
     ImGui::End();
@@ -211,6 +221,7 @@ void menu::mainLoop() {
             }
         }
         if (config::isRadarActivated) features::doRadar();
+        if (config::isFovActivated) features::doFov();
         if (GetAsyncKeyState(VK_SPACE) & 0x8000 && config::isBhopActivated) features::doBhop();
         if (config::isGlowActivated) features::doGlow();
         if (config::isTbotActivated) features::doTbot();

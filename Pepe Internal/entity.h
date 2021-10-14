@@ -16,6 +16,7 @@ public:
         DEFINE_MEMBER_N(int, m_iHealth, offsets::m_iHealth);
         DEFINE_MEMBER_N(int, m_iArmorValue, offsets::m_ArmorValue);
         DEFINE_MEMBER_N(float, flashDuration, offsets::m_flFlashDuration);
+        DEFINE_MEMBER_N(int, fovAmount, offsets::m_iDefaultFOV);
         DEFINE_MEMBER_N(bool, isSpotted, offsets::m_bSpotted);
         DEFINE_MEMBER_N(bool, isDormant, offsets::m_bDormant);
         DEFINE_MEMBER_N(int, shotsFired, offsets::m_iShotsFired);

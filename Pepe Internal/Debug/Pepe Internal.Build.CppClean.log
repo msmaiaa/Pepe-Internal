@@ -1,19 +1,14 @@
 g:\code\cpp\csgo\pepe internal\pepe internal\debug\vc142.pdb
 g:\code\cpp\csgo\pepe internal\pepe internal\debug\vc142.idb
 g:\code\cpp\csgo\pepe internal\pepe internal\debug\internal.obj
-g:\code\cpp\csgo\pepe internal\pepe internal\debug\interfaces.obj
 g:\code\cpp\csgo\pepe internal\pepe internal\debug\imgui_widgets.obj
 g:\code\cpp\csgo\pepe internal\pepe internal\debug\imgui_impl_win32.obj
 g:\code\cpp\csgo\pepe internal\pepe internal\debug\imgui_impl_dx9.obj
 g:\code\cpp\csgo\pepe internal\pepe internal\debug\imgui_draw.obj
 g:\code\cpp\csgo\pepe internal\pepe internal\debug\imgui_demo.obj
 g:\code\cpp\csgo\pepe internal\pepe internal\debug\imgui.obj
-g:\code\cpp\csgo\pepe internal\pepe internal\debug\helpers.obj
-g:\code\cpp\csgo\pepe internal\pepe internal\debug\features.obj
 g:\code\cpp\csgo\pepe internal\pepe internal\debug\entity.obj
 g:\code\cpp\csgo\pepe internal\pepe internal\debug\dx.obj
-g:\code\cpp\csgo\pepe internal\pepe internal\debug\main.obj
-g:\code\cpp\csgo\pepe internal\pepe internal\debug\eventlistener.obj
 g:\code\cpp\csgo\pepe internal\pepe internal\debug\drawing.obj
 g:\code\cpp\csgo\pepe internal\pepe internal\debug\config.obj
 g:\code\cpp\csgo\pepe internal\pepe internal\debug\cinput.obj
@@ -23,6 +18,11 @@ g:\code\cpp\csgo\pepe internal\pepe internal\debug\vector.obj
 g:\code\cpp\csgo\pepe internal\pepe internal\debug\vmatrix.obj
 g:\code\cpp\csgo\pepe internal\pepe internal\debug\simdjson.obj
 g:\code\cpp\csgo\pepe internal\pepe internal\debug\menu.obj
+g:\code\cpp\csgo\pepe internal\pepe internal\debug\interfaces.obj
+g:\code\cpp\csgo\pepe internal\pepe internal\debug\helpers.obj
+g:\code\cpp\csgo\pepe internal\pepe internal\debug\features.obj
+g:\code\cpp\csgo\pepe internal\pepe internal\debug\main.obj
+g:\code\cpp\csgo\pepe internal\pepe internal\debug\eventlistener.obj
 g:\code\cpp\csgo\pepe internal\debug\pepe internal.dll
 g:\code\cpp\csgo\pepe internal\pepe internal\debug\pepe internal.ilk
 g:\code\cpp\csgo\pepe internal\debug\pepe internal.pdb

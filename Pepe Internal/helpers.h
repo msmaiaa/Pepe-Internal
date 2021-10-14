@@ -18,6 +18,10 @@ namespace render {
 	void updateOverlayState(bool state, HWND ownd) noexcept;
 }
 
+namespace Time {
+	float deltaTimeSec();
+}
+
 namespace hook {
 	LRESULT __stdcall WndProc(const HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) noexcept;
 	bool init() noexcept;

@@ -174,9 +174,16 @@
     <ClInclude Include="features.h" />
     <ClInclude Include="helpers.h" />
     <ClInclude Include="IAppSystem.h" />
+    <ClInclude Include="IClientEntity.h" />
     <ClInclude Include="IClientEntityList.h" />
+    <ClInclude Include="IClientNetworkable.h" />
+    <ClInclude Include="IClientRenderable.h" />
+    <ClInclude Include="IClientThinkable.h" />
+    <ClInclude Include="IClientUnknown.h" />
+    <ClInclude Include="IEngineTrace.h" />
     <ClInclude Include="IGameEvents.h" />
     <ClInclude Include="IGameResources.h" />
+    <ClInclude Include="IHandleEntity.h" />
     <ClInclude Include="ImGui\imconfig.h" />
     <ClInclude Include="ImGui\imgui.h" />
     <ClInclude Include="ImGui\imgui_impl_dx9.h" />

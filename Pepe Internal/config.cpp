@@ -20,6 +20,12 @@ namespace config {
 	bool glow_allies;
 	int tBotKey;
 	int tBotDelay;
+	//
+	bool isAimbotActivated;
+	int aimbotKey;
+	int aimbotFov;
+	int aimbotSpeed;
+	bool drawAimbotFov;
 
 	bool loadConfig() {
 		try {
@@ -38,6 +44,11 @@ namespace config {
 			isTbotActivated = bool(configs["triggerbot"]);
 			tBotDelay = int64_t(configs["triggerbot_delay"]);
 			tBotKey = int64_t(configs["triggerbot_key"]);
+			isAimbotActivated = bool(configs["aimbot"]);
+			aimbotFov = int64_t(configs["aimbot_fov"]);
+			aimbotKey = int64_t(configs["aimbot_key"]);
+			aimbotSpeed = int64_t(configs["aimbot_speed"]);
+			drawAimbotFov = bool(configs["draw_aimbot_fov"]);
 			return 0;
 		}
 		catch (simdjson_error e) {
@@ -58,6 +69,11 @@ namespace config {
 		  { "triggerbot", isTbotActivated },
 		  { "triggerbot_delay", tBotDelay },
 		  { "triggerbot_key", tBotKey },
+		  { "aimbot", isAimbotActivated },
+		  { "aimbot_fov", aimbotFov },
+		  { "aimbot_key", aimbotKey },
+		  { "aimbot_speed", aimbotSpeed },
+		  { "draw_aimbot_fov", drawAimbotFov},
 		};
 		std::ofstream output("c:\\pepe\\pepe_csgo.json");
 		output << std::setw(4) << j << std::endl;

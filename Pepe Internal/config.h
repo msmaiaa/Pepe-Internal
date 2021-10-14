@@ -5,15 +5,21 @@ namespace config {
 	extern bool isBhopActivated;
 	extern bool isGlowActivated;
 	extern bool glow_allies;
-	extern bool isTbotActivated;
 	extern bool isRCSActivated;
 	extern bool isRCSCrosshairActivated;
 	//esp
 	extern bool isESPActivated;
 	extern bool esp_allies;
 	//
+	extern bool isTbotActivated;
 	extern int tBotDelay;
 	extern int tBotKey;
+	//
+	extern bool isAimbotActivated;
+	extern int aimbotKey;
+	extern int aimbotFov;
+	extern bool drawAimbotFov;
+	extern int aimbotSpeed;
 
 	bool loadConfig();
 	void saveConfig();

@@ -34,6 +34,8 @@ public:
 class LocalPlayer : public Ent {
 public:
     bool resetFlashDuration();
+    void aimAt(vec3* target);
+    float getDistance(vec3 other);
 };
 
 struct GlowStruct {

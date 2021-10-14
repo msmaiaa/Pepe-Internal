@@ -107,12 +107,18 @@ void menu::drawMenu() noexcept {
         ImGui::Checkbox("Show allies on ESP", &config::esp_allies);
         ImGui::Checkbox("Radar", &config::isRadarActivated);
         ImGui::Checkbox("RCS Crosshair", &config::isRCSCrosshairActivated);
+        ImGui::Checkbox("Show aimbot fov", &config::drawAimbotFov);
         break;
     
     case 1: 
         ImGui::Checkbox("Toggled", &config::isTbotActivated);
         ImGui::PushItemWidth(22.0f);
         ImGui::InputInt("Delay", &config::tBotDelay, 0);
+        ImGui::PopItemWidth();
+        ImGui::Checkbox("Aimbot", &config::isAimbotActivated);
+        ImGui::PushItemWidth(22.0f);
+        ImGui::InputInt("Aimbot fov", &config::aimbotFov, 0);
+        ImGui::InputInt("Aimbot speed", &config::aimbotSpeed, 0);
         ImGui::PopItemWidth();
         break;
    
@@ -146,6 +152,16 @@ void menu::drawFrame() noexcept {
     drawing::start();
     if (config::isESPActivated) features::doESP();
     if (config::isRCSCrosshairActivated) features::doRCSCrosshair();
+    ImVec2 display{ ImGui::GetIO().DisplaySize };
+    if (config::drawAimbotFov) {
+        if (config::aimbotFov > 0) {
+            float centerY = display.y / 2.0f;
+            float centerX = display.x / 2.0f;
+            //static float maxDist{ config::aimbotFov / (90 / centerY) };
+            //std::cout << maxDist << std::endl;
+            drawing::draw::circle(ImVec2{ centerX, centerY }, config::aimbotFov / (90 / centerY), green);
+        }
+    }
     ///topleft menu
     bool isInGame = interfaces::EngineClient->IsInGame();
     ItemDrawer tlMenu;
@@ -193,7 +209,8 @@ void menu::mainLoop() {
         if (GetAsyncKeyState(VK_SPACE) & 0x8000 && config::isBhopActivated) features::doBhop();
         if (config::isGlowActivated) features::doGlow();
         if (config::isTbotActivated) features::doTbot();
-        if (config::isRCSActivated) features::doRCS();
+        //if (config::isRCSActivated) features::doRCS();
+        if (GetAsyncKeyState(config::aimbotKey) && config::isAimbotActivated) features::doAimbot();
     }
     Sleep(1);
 }

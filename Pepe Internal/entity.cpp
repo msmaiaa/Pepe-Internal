@@ -10,3 +10,10 @@ bool LocalPlayer::resetFlashDuration() {
 	}
 	return true;
 };
+
+float LocalPlayer::getDistance(vec3 other) {
+	vec3 myPos = origin;
+	vec3 delta = other - myPos;
+	return sqrt(delta.x * delta.x + delta.y * delta.y + delta.z * delta.z);
+}
+

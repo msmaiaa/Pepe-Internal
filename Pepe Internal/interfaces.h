@@ -7,6 +7,7 @@
 #include "CInput.h"
 #include "internal.h"
 #include "EventListener.h"
+#include "IEngineTrace.h"
 
 namespace interfaces {
 	void setupInterfaces();
@@ -16,4 +17,5 @@ namespace interfaces {
 	//C_PlayerResource* PlayerResource;
 	extern IGameEventManager2* GameEventManager;
 	extern ISurface* Surface;
+	extern IEngineTrace* EngineTrace;
 }

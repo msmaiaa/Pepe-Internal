@@ -165,6 +165,27 @@
     <ClInclude Include="simdjson\simdjson.h">
       <Filter>config</Filter>
     </ClInclude>
+    <ClInclude Include="IEngineTrace.h">
+      <Filter>csgosdk</Filter>
+    </ClInclude>
+    <ClInclude Include="IClientEntity.h">
+      <Filter>csgosdk</Filter>
+    </ClInclude>
+    <ClInclude Include="IClientUnknown.h">
+      <Filter>csgosdk</Filter>
+    </ClInclude>
+    <ClInclude Include="IClientThinkable.h">
+      <Filter>csgosdk</Filter>
+    </ClInclude>
+    <ClInclude Include="IClientRenderable.h">
+      <Filter>csgosdk</Filter>
+    </ClInclude>
+    <ClInclude Include="IClientNetworkable.h">
+      <Filter>csgosdk</Filter>
+    </ClInclude>
+    <ClInclude Include="IHandleEntity.h">
+      <Filter>csgosdk</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

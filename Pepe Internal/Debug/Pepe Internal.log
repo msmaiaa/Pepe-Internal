@@ -1,7 +1,22 @@
 ﻿  config.cpp
   The simdjson library is designed for 64-bit processors and it seems that you are not compiling for a known 64-bit platform. All fast kernels will be disabled and performance may be poor. Please use a 64-bit target such as x64, 64-bit ARM or 64-bit PPC.
   The contents of <string_view> are available only with C++17 or later.
-G:\code\cpp\csgo\Pepe Internal\Pepe Internal\config.cpp(39,23): warning C4244: '=': conversion from 'int64_t' to 'int', possible loss of data
-G:\code\cpp\csgo\Pepe Internal\Pepe Internal\config.cpp(40,21): warning C4244: '=': conversion from 'int64_t' to 'int', possible loss of data
-G:\code\cpp\csgo\Pepe Internal\Pepe Internal\config.cpp(46): warning C4715: 'config::loadConfig': not all control paths return a value
+G:\code\cpp\csgo\Pepe Internal\Pepe Internal\config.cpp(45,23): warning C4244: '=': conversion from 'int64_t' to 'int', possible loss of data
+G:\code\cpp\csgo\Pepe Internal\Pepe Internal\config.cpp(46,21): warning C4244: '=': conversion from 'int64_t' to 'int', possible loss of data
+G:\code\cpp\csgo\Pepe Internal\Pepe Internal\config.cpp(48,23): warning C4244: '=': conversion from 'int64_t' to 'int', possible loss of data
+G:\code\cpp\csgo\Pepe Internal\Pepe Internal\config.cpp(49,23): warning C4244: '=': conversion from 'int64_t' to 'int', possible loss of data
+G:\code\cpp\csgo\Pepe Internal\Pepe Internal\config.cpp(50,25): warning C4244: '=': conversion from 'int64_t' to 'int', possible loss of data
+  features.cpp
+G:\code\cpp\csgo\Pepe Internal\Pepe Internal\features.cpp(163,27): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+G:\code\cpp\csgo\Pepe Internal\Pepe Internal\features.cpp(164,27): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+G:\code\cpp\csgo\Pepe Internal\Pepe Internal\features.cpp(165,27): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+G:\code\cpp\csgo\Pepe Internal\Pepe Internal\features.cpp(213,18): warning C4101: 'entHead2D': unreferenced local variable
+G:\code\cpp\csgo\Pepe Internal\Pepe Internal\features.cpp(251,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+G:\code\cpp\csgo\Pepe Internal\Pepe Internal\features.cpp(252,12): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  menu.cpp
+G:\code\cpp\csgo\Pepe Internal\Pepe Internal\menu.cpp(44,55): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+G:\code\cpp\csgo\Pepe Internal\Pepe Internal\menu.cpp(46,29): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+G:\code\cpp\csgo\Pepe Internal\Pepe Internal\menu.cpp(47,29): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  Generating Code...
+G:\code\cpp\csgo\Pepe Internal\Pepe Internal\config.cpp(57): warning C4715: 'config::loadConfig': not all control paths return a value
   Pepe Internal.vcxproj -> G:\code\cpp\csgo\Pepe Internal\Debug\Pepe Internal.dll

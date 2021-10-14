@@ -5,11 +5,13 @@
 #include "drawing.h"
 #include "config.h"
 #include <iostream>
-#include <chrono>
+#include "helpers.h"
+#include <thread>
 
 #define FL_JUMP 6
 
 LocalPlayer* localPlayer;
+vec3 newAngles{ 0, 0, 0 };
 namespace features {
 	uintptr_t clientModule;
 	uintptr_t engineModule;
@@ -98,6 +100,7 @@ void features::doRCS() {
 			*viewAngles = newAngle;
 		}
 		oPunch = punchAngle;
+		newAngles = punchAngle;
 	}
 }
 
@@ -193,6 +196,119 @@ void features::doESP() {
 				}
 			}
 		}
+	}
+}
+
+Ent* features::getBestEnemy() {
+	Ent* bestEnemy = nullptr;
+	int bestEnemyIndex = -1;
+	float lastDistance = 100000;
+	for (int i = 1; i < 64; i++) {
+		Ent* curEnt = (Ent*)interfaces::ClientEntityList->GetClientEntity(i);
+		if (curEnt == NULL || curEnt == localPlayer) continue;
+		if (curEnt->teamNum == localPlayer->teamNum || curEnt->isDormant) continue;
+		if (curEnt->m_iHealth < 1 || localPlayer->m_iHealth < 1) continue;
+
+		vec3 entHead3D = GetBonePos(curEnt, 8);
+		vec2 entPos2D, entHead2D;
+		if (WorldToScreen(entHead3D, entPos2D)) {
+			ImVec2 displaySize = ImGui::GetIO().DisplaySize;
+			float centerX = displaySize.x / 2.0f;
+			float centerY = displaySize.y / 2.0f;
+			float distY{ centerY - entPos2D.y  };
+			float distX{ centerX - entPos2D.x };
+			float tmpDistance = sqrtf((distX * distX) + (distY * distY));
+			float maxDist = config::aimbotFov / (90 / centerY);
+			if (tmpDistance > maxDist) continue;
+			if (!lastDistance) {
+				lastDistance = tmpDistance;
+				continue;
+			}
+			if (tmpDistance < lastDistance) {
+				lastDistance = tmpDistance;
+				bestEnemy = curEnt;
+			}
+			else continue;
+		}
+	}
+	return bestEnemy;
+}
+double PI = 3.14159265358;
+void features::aimAt(vec3 target) {
+	static vec3* viewAngles = (vec3*)(*clientState + offsets::dwClientState_ViewAngles);
+
+	vec3 myCamPos{ localPlayer->origin + localPlayer->m_vecViewOffset };
+
+	vec3 origin = localPlayer->vecOrigin;
+	vec3 viewOffset = localPlayer->m_vecViewOffset;
+	vec3 myPos = (origin + viewOffset);
+
+	vec3 deltaVec = { target.x - myPos.x, target.y - myPos.y, target.z - myPos.z };
+	float deltaVecLength = sqrt(deltaVec.x * deltaVec.x + deltaVec.y * deltaVec.y + deltaVec.z * deltaVec.z);
+
+
+
+	float pitch = -asin(deltaVec.z / deltaVecLength) * (180 / PI);
+	float yaw = atan2(deltaVec.y, deltaVec.x) * (180 / PI);
+
+	//calc angle diff
+	vec3 punchAngle = localPlayer->aimPunchAngle;
+	float diffX{ fmodf(pitch - viewAngles->x, 180.0f) - (punchAngle.x * 2.0f) };
+	float diffY{ fmodf(yaw - viewAngles->y, 180.0f) - (punchAngle.y * 2.0f) };
+	diffX = fmodf(2 * diffX, 180.0f) - diffX;
+	diffY = fmodf(2 * diffY, 180.0f) - diffY;
+	float aimspeed{ (float)config::aimbotSpeed };
+	aimspeed *= Time::deltaTimeSec();
+	float precision{ 0.02f }; 
+	precision *= precision;
+
+
+	if (pitch >= -89 && pitch <= 89 && yaw >= -180 && yaw <= 180)
+	{
+		if (diffX * diffX > precision) {
+			viewAngles->x += (diffX * aimspeed);
+		}
+		if (diffY * diffY > precision) {
+			viewAngles->y += (diffY * aimspeed);
+		}
+		//viewAngles->x = pitch;
+		//viewAngles->y = yaw;
+	}
+}
+
+
+Ent* GetClosestEnemy() {
+	float closestDistance = 10000000;
+	int closestDistanceIndex = -1;
+
+	for (int i = 1; i < 64; i++) {
+		Ent* curEnt = (Ent*)interfaces::ClientEntityList->GetClientEntity(i);
+		if (curEnt == NULL || curEnt == localPlayer) continue;
+		if (curEnt->teamNum == localPlayer->teamNum || curEnt->isDormant) continue;
+		if (curEnt->m_iHealth < 1 || localPlayer->m_iHealth < 1) continue;
+
+		float currentDistance = localPlayer->getDistance(curEnt->vecOrigin);
+		if (currentDistance < closestDistance) {
+			closestDistance = currentDistance;
+			closestDistanceIndex = i;
+		}
+	}
+	if (closestDistanceIndex == -1) {
+		return NULL;
+	}
+	return (Ent*)interfaces::ClientEntityList->GetClientEntity(closestDistanceIndex);
+}
+
+void features::doAimbot() {
+	if (GetAsyncKeyState(config::aimbotKey)) {
+		Ent* bestEnemy = getBestEnemy();
+		if (bestEnemy != NULL) {
+			aimAt(GetBonePos(bestEnemy, 8));
+		}
+		/*Ent* closestEnt = GetClosestEnemy();
+		if (closestEnt) {
+			aimAt(GetBonePos(closestEnt, 8));
+		}*/
 	}
 }
 

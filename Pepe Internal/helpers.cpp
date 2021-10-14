@@ -6,9 +6,13 @@
 #include "features.h"
 #include "interfaces.h"
 #include "imgui_h.h"
+#include <chrono>
 
 extern LocalPlayer* localPlayer;
 using namespace colors::rgb;
+
+std::chrono::duration<float> deltaTime;
+std::chrono::time_point<std::chrono::steady_clock> lastTime;
 
 bool isImGuiInitialized{ false };
 TrampHook* graphicsHook{ nullptr };
@@ -50,6 +54,10 @@ void render::startFrame()noexcept {
 	ImGui_ImplDX9_NewFrame();
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
+
+	auto tmpTime = std::chrono::high_resolution_clock::now();
+	deltaTime = tmpTime - lastTime;
+	lastTime = tmpTime;
 }
 
 void render::endFrame()noexcept {
@@ -96,6 +104,10 @@ HRESULT APIENTRY hEndScene(LPDIRECT3DDEVICE9 pdevice) {
 	HRESULT retValue{ ((tEndScene9)graphicsHook->getGateway())(pdevice) };
 
 	return retValue;
+}
+
+float Time::deltaTimeSec() {
+	return deltaTime.count();
 }
 
 void setupImGui() {

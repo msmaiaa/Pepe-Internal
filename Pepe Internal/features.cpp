@@ -253,26 +253,30 @@ void features::aimAt(vec3 target) {
 
 	//calc angle diff
 	vec3 punchAngle = localPlayer->aimPunchAngle;
-	float diffX{ fmodf(pitch - viewAngles->x, 180.0f) - (punchAngle.x * 2.0f) };
-	float diffY{ fmodf(yaw - viewAngles->y, 180.0f) - (punchAngle.y * 2.0f) };
-	diffX = fmodf(2 * diffX, 180.0f) - diffX;
-	diffY = fmodf(2 * diffY, 180.0f) - diffY;
-	float aimspeed{ (float)config::aimbotSpeed };
-	aimspeed *= Time::deltaTimeSec();
-	float precision{ 0.02f }; 
-	precision *= precision;
 
+	if (config::smoothAimbot) {
+		float diffX{ fmodf(pitch - viewAngles->x, 180.0f) - (punchAngle.x * 2.0f) };
+		float diffY{ fmodf(yaw - viewAngles->y, 180.0f) - (punchAngle.y * 2.0f) };
+		diffX = fmodf(2 * diffX, 180.0f) - diffX;
+		diffY = fmodf(2 * diffY, 180.0f) - diffY;
+		float aimspeed{ (float)config::aimbotSpeed };
+		aimspeed *= Time::deltaTimeSec();
+		float precision{ 0.02f };
+		precision *= precision;
+		if (pitch >= -89 && pitch <= 89 && yaw >= -180 && yaw <= 180)
+		{
 
-	if (pitch >= -89 && pitch <= 89 && yaw >= -180 && yaw <= 180)
-	{
-		if (diffX * diffX > precision) {
-			viewAngles->x += (diffX * aimspeed);
+			if (diffX * diffX > precision) {
+				viewAngles->x += (diffX * aimspeed);
+			}
+			if (diffY * diffY > precision) {
+				viewAngles->y += (diffY * aimspeed);
+			}
 		}
-		if (diffY * diffY > precision) {
-			viewAngles->y += (diffY * aimspeed);
-		}
-		//viewAngles->x = pitch;
-		//viewAngles->y = yaw;
+	}
+	else {
+		viewAngles->x = pitch - (punchAngle.x * 2.0f);
+		viewAngles->y = yaw - (punchAngle.y * 2.0f);
 	}
 }
 

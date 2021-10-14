@@ -26,6 +26,7 @@ namespace config {
 	int aimbotFov = 20;
 	int aimbotSpeed = 80;
 	bool drawAimbotFov = false;
+	bool smoothAimbot = false;
 
 	bool loadConfig() {
 		try {
@@ -49,11 +50,11 @@ namespace config {
 			aimbotKey = int64_t(configs["aimbot_key"]);
 			aimbotSpeed = int64_t(configs["aimbot_speed"]);
 			drawAimbotFov = bool(configs["draw_aimbot_fov"]);
+			smoothAimbot = bool(configs["smooth_aimbot"]);
 			return 0;
 		}
 		catch (simdjson_error e) {
 			if (e.error() == IO_ERROR) {
-				std::cout << "FILE DOESNT EXIST" << std::endl;
 				saveConfig();
 				loadConfig();
 			}
@@ -78,6 +79,7 @@ namespace config {
 		  { "aimbot_key", aimbotKey },
 		  { "aimbot_speed", aimbotSpeed },
 		  { "draw_aimbot_fov", drawAimbotFov},
+		  { "smooth_aimbot", smoothAimbot},
 		};
 		std::ofstream output("c:\\pepe\\pepe_csgo.json");
 		output << std::setw(4) << j << std::endl;

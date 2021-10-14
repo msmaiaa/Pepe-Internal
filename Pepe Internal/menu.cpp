@@ -118,8 +118,13 @@ void menu::drawMenu() noexcept {
         ImGui::Checkbox("Aimbot", &config::isAimbotActivated);
         ImGui::PushItemWidth(22.0f);
         ImGui::InputInt("Aimbot fov", &config::aimbotFov, 0);
-        ImGui::InputInt("Aimbot speed", &config::aimbotSpeed, 0);
         ImGui::PopItemWidth();
+        ImGui::Checkbox("Smooth aimbot", &config::smoothAimbot);
+        if (config::smoothAimbot) {
+            ImGui::PushItemWidth(22.0f);
+            ImGui::InputInt("Aimbot speed", &config::aimbotSpeed, 0);
+            ImGui::PopItemWidth();
+        }
         break;
    
     case 2: 

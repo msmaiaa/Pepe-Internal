@@ -8,24 +8,24 @@
 using json = nlohmann::json;
 using namespace simdjson;
 namespace config {
-	bool noFlashActivated;
-	bool isRadarActivated;
-	bool isBhopActivated;
-	bool isGlowActivated;
-	bool isTbotActivated;
-	bool isRCSActivated;
-	bool isRCSCrosshairActivated;
-	bool isESPActivated;
-	bool esp_allies;
-	bool glow_allies;
-	int tBotKey;
-	int tBotDelay;
+	bool noFlashActivated = false;
+	bool isRadarActivated = false;
+	bool isBhopActivated = false;
+	bool isGlowActivated = false;
+	bool isTbotActivated = false;
+	bool isRCSActivated = false;
+	bool isRCSCrosshairActivated = false;
+	bool isESPActivated = false;
+	bool esp_allies = false;
+	bool glow_allies = false;
+	int tBotKey = 67;
+	int tBotDelay = 0;
 	//
-	bool isAimbotActivated;
-	int aimbotKey;
-	int aimbotFov;
-	int aimbotSpeed;
-	bool drawAimbotFov;
+	bool isAimbotActivated = false;
+	int aimbotKey = 1;
+	int aimbotFov = 20;
+	int aimbotSpeed = 80;
+	bool drawAimbotFov = false;
 
 	bool loadConfig() {
 		try {
@@ -52,7 +52,11 @@ namespace config {
 			return 0;
 		}
 		catch (simdjson_error e) {
-			std::cout << e.error() << std::endl;
+			if (e.error() == IO_ERROR) {
+				std::cout << "FILE DOESNT EXIST" << std::endl;
+				saveConfig();
+				loadConfig();
+			}
 		}
 	};
 	void saveConfig() {

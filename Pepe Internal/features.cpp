@@ -4,9 +4,12 @@
 #include "EventListener.h"
 #include "drawing.h"
 #include "config.h"
-#include <iostream>
 #include "helpers.h"
+#include "netvars.h"
+#include <iostream>
 #include <thread>
+#include <iomanip>
+
 
 #define FL_JUMP 6
 
@@ -17,9 +20,14 @@ namespace features {
 	uintptr_t engineModule;
 	uintptr_t* glowObject;
 	uintptr_t* clientState;
-	C_PlayerResource* PlayerResource;
+	uintptr_t* PlayerResource;
+	//
+	uintptr_t killsOffset;
+	uintptr_t deathsOffset;
+	uintptr_t assistsOffset;
+	uintptr_t pingOffset;
+	//
 	float viewMatrix[16];
-	//int input;
 	int* localPlayerIndex;
 }
 void features::doRadar() {
@@ -318,6 +326,34 @@ void features::doAimbot() {
 	}
 }
 
+
+
+std::string features::calcCurrentKDA() {
+	if (PlayerResource == NULL || *PlayerResource <= 0) return "0.00";
+	static int* kills = (int*)(*PlayerResource + (killsOffset + 0x4));
+	static int* deaths = (int*)(*PlayerResource + (deathsOffset + 0x4));
+	static int* assists = (int*)(*PlayerResource + (assistsOffset + 0x4));
+	if (kills == NULL || deaths == NULL || assists == NULL) return "0.0";
+	float val = 0.0f;
+	if (*deaths == 0) {
+		val = (float)(*kills + *assists);
+	}
+	else {
+		val = (float)(*kills + *assists) / *deaths;
+	}
+	std::stringstream stream;	
+	stream << std::fixed << std::setprecision(2) << val;
+	std::string s = stream.str();
+	return s;
+}
+
+int features::getPing() {
+	if (*PlayerResource <= 0) return 0;
+	static int* ping = (int*)(*PlayerResource + (pingOffset + 0x4));
+	if (ping == NULL) return 0;
+	return *ping;
+}
+
 void features::doFov() {
 	if (localPlayer != NULL) {
 		if (localPlayer->fovAmount != config::fovAmount) {
@@ -326,13 +362,18 @@ void features::doFov() {
 	}
 }
 
+
 void features::setupModules() {
 	engineModule = (uintptr_t)GetModuleHandle(L"engine.dll");
 	clientModule = (uintptr_t)GetModuleHandle(L"client.dll");
 	clientState = (uintptr_t*)(engineModule + offsets::dwClientState);
 	glowObject = (uintptr_t*)(clientModule + offsets::dwGlowObjectManager);
-	PlayerResource = (C_PlayerResource*)(clientModule + offsets::dwPlayerResource);
+	PlayerResource = (uintptr_t*)(clientModule + offsets::dwPlayerResource);
 	localPlayerIndex = (int*)(*clientState + 0x17C);
+	killsOffset = GetNetvarOffset("DT_PlayerResource", "m_iKills", interfaces::clientClass);
+	deathsOffset = GetNetvarOffset("DT_PlayerResource", "m_iDeaths", interfaces::clientClass);
+	assistsOffset = GetNetvarOffset("DT_PlayerResource", "m_iAssists", interfaces::clientClass);
+	pingOffset = GetNetvarOffset("DT_PlayerResource", "m_iPing", interfaces::clientClass);
 };
 
 void features::reset() {

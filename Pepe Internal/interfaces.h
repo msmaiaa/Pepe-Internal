@@ -6,6 +6,7 @@
 #include "IClientEntityList.h"
 #include "CInput.h"
 #include "internal.h"
+#include "IBaseClientDLL.h"
 #include "EventListener.h"
 #include "IEngineTrace.h"
 
@@ -14,8 +15,9 @@ namespace interfaces {
 	extern IClientEntityList* ClientEntityList;
 	extern IVEngineClient* EngineClient;
 	extern CInput* Input;
-	//C_PlayerResource* PlayerResource;
+	extern C_PlayerResource* PlayerResource;
 	extern IGameEventManager2* GameEventManager;
 	extern ISurface* Surface;
 	extern IEngineTrace* EngineTrace;
+	extern ClientClass* clientClass;
 }

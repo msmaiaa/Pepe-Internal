@@ -7,6 +7,8 @@
 #include "config.h"
 #include <iostream>
 
+
+
 using namespace colors::rgb;
 extern LocalPlayer* localPlayer;
 uintptr_t BHOP_KEY = VK_SPACE;
@@ -116,6 +118,8 @@ void menu::drawMenu() noexcept {
         ImGui::Checkbox("Radar", &config::isRadarActivated);
         ImGui::Checkbox("RCS Crosshair", &config::isRCSCrosshairActivated);
         ImGui::Checkbox("Show aimbot fov", &config::drawAimbotFov);
+        ImGui::Checkbox("Show KDA", &config::showKDA);
+        ImGui::Checkbox("Show Ping", &config::showPing);
         break;
     
     case 1: 
@@ -142,6 +146,12 @@ void menu::drawMenu() noexcept {
         if (config::isFovActivated) {
             drawIntInput("Fov", config::fovAmount, 30.0f);
         }
+        if (ImGui::Button("Teste playerresource", ImVec2(100, 25))) {
+            /*if (features::PlayerResource != NULL) {
+               // int kills = features::PlayerResource->GetKills(*features::localPlayerIndex);
+               // std::cout << kills << std::endl;
+            }*/
+        };
         break;
     case 4:
         //CONFIG
@@ -182,13 +192,18 @@ void menu::drawFrame() noexcept {
     ItemDrawer tlMenu;
     tlMenu.pos = "topleft";
     player_info_s playerInfo;
-    if (interfaces::EngineClient->GetPlayerInfo(*features::localPlayerIndex, &playerInfo)) {
-        std::string n(playerInfo.szName);
-        std::string s(playerInfo.szSteamID);
-        tlMenu.add(n + ":" + s, green);
+    if (interfaces::EngineClient != NULL && features::localPlayerIndex != NULL) {
+        if (interfaces::EngineClient->GetPlayerInfo(*features::localPlayerIndex, &playerInfo)) {
+            std::string n(playerInfo.szName);
+            std::string s(playerInfo.szSteamID);
+            tlMenu.add(n + ":" + s, green);
+        }
     }
     ImColor buff = isInGame ? green : red;
     tlMenu.add(localPlayer != NULL ? "LocalPlayer: 0x" + hexToStr((int)localPlayer) : "LocalPlayer not found", localPlayer != NULL ? green : red);
+    if (config::showKDA) tlMenu.add("KDA " + features::calcCurrentKDA(), green);
+    if (config::showPing) tlMenu.add("Ping " + std::to_string(features::getPing()), green);
+
     tlMenu.send();
     ///
     drawing::end();

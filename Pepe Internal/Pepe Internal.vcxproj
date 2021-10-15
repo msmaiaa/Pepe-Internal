@@ -174,6 +174,7 @@
     <ClInclude Include="features.h" />
     <ClInclude Include="helpers.h" />
     <ClInclude Include="IAppSystem.h" />
+    <ClInclude Include="IBaseClientDLL.h" />
     <ClInclude Include="IClientEntity.h" />
     <ClInclude Include="IClientEntityList.h" />
     <ClInclude Include="IClientNetworkable.h" />
@@ -198,7 +199,9 @@
     <ClInclude Include="internal.h" />
     <ClInclude Include="IVEngineClient.h" />
     <ClInclude Include="menu.h" />
+    <ClInclude Include="netvars.h" />
     <ClInclude Include="QAngle.h" />
+    <ClInclude Include="Recv.h" />
     <ClInclude Include="simdjson\simdjson.h" />
     <ClInclude Include="UserCmd.h" />
     <ClInclude Include="Vector.h" />

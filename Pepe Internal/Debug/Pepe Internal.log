@@ -1,5 +1,17 @@
-﻿  menu.cpp
-G:\code\cpp\csgo\Pepe Internal\Pepe Internal\menu.cpp(44,55): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-G:\code\cpp\csgo\Pepe Internal\Pepe Internal\menu.cpp(46,29): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-G:\code\cpp\csgo\Pepe Internal\Pepe Internal\menu.cpp(47,29): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+﻿  EventListener.cpp
+  features.cpp
+G:\code\cpp\csgo\Pepe Internal\Pepe Internal\features.cpp(171,27): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+G:\code\cpp\csgo\Pepe Internal\Pepe Internal\features.cpp(172,27): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+G:\code\cpp\csgo\Pepe Internal\Pepe Internal\features.cpp(173,27): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+G:\code\cpp\csgo\Pepe Internal\Pepe Internal\features.cpp(221,18): warning C4101: 'entHead2D': unreferenced local variable
+G:\code\cpp\csgo\Pepe Internal\Pepe Internal\features.cpp(259,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+G:\code\cpp\csgo\Pepe Internal\Pepe Internal\features.cpp(260,12): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  helpers.cpp
+  main.cpp
+  menu.cpp
+G:\code\cpp\csgo\Pepe Internal\Pepe Internal\menu.cpp(46,55): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+G:\code\cpp\csgo\Pepe Internal\Pepe Internal\menu.cpp(48,29): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+G:\code\cpp\csgo\Pepe Internal\Pepe Internal\menu.cpp(49,29): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  Generating Code...
+G:\code\cpp\csgo\Pepe Internal\Pepe Internal\helpers.cpp(76): warning C4715: 'hook::init': not all control paths return a value
   Pepe Internal.vcxproj -> G:\code\cpp\csgo\Pepe Internal\Debug\Pepe Internal.dll

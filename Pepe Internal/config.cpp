@@ -31,6 +31,9 @@ namespace config {
 	int aimbotSpeed = 80;
 	bool drawAimbotFov = false;
 	bool smoothAimbot = false;
+	//
+	bool showKDA = false;
+	bool showPing = false;
 
 	bool loadConfig() {
 		try {
@@ -43,6 +46,8 @@ namespace config {
 			esp_allies = bool(configs["esp_allies"]);
 			isRadarActivated = bool(configs["radar"]);
 			isRCSCrosshairActivated = bool(configs["rcs_crosshair"]);
+			showKDA = bool(configs["show_kda"]);
+			showPing = bool(configs["show_ping"]);
 			//
 			isBhopActivated = bool(configs["bhop"]);
 			noFlashActivated = bool(configs["no_flash"]);
@@ -78,6 +83,8 @@ namespace config {
 		  { "esp_allies", esp_allies},
 		  { "radar", isRadarActivated },
 		  { "rcs_crosshair", isRCSCrosshairActivated },
+		  { "show_kda", showKDA },
+		  { "show_ping", showPing },
 		  { "bhop", isBhopActivated },
 		  { "no_flash", noFlashActivated },
 		  { "rcs", isRCSActivated },
@@ -90,6 +97,8 @@ namespace config {
 		  { "aimbot_speed", aimbotSpeed },
 		  { "draw_aimbot_fov", drawAimbotFov},
 		  { "smooth_aimbot", smoothAimbot},
+		  { "fov_activated", isFovActivated},
+		  { "fov_amount", fovAmount},
 		};
 		std::ofstream output("c:\\pepe\\pepe_csgo.json");
 		output << std::setw(4) << j << std::endl;

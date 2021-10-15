@@ -10,6 +10,7 @@ namespace interfaces {
 	ISurface* Surface;
 	IGameEventManager2* GameEventManager;
 	IEngineTrace* EngineTrace;
+	ClientClass* clientClass;
 }
 
 void interfaces::setupInterfaces() {
@@ -19,5 +20,7 @@ void interfaces::setupInterfaces() {
 	Surface = (ISurface*)GetInterface(L"vguimatsurface.dll", "VGUI_Surface031");
 	EngineTrace = (IEngineTrace*)GetInterface(L"engine.dll", "EngineTraceClient004");
 	Input = *(CInput**)(FindPattern("client.dll", "B9 ? ? ? ? F3 0F 11 04 24 FF 50 10") + 0x1);
+	IBaseClientDLL* BaseClientDLL = (IBaseClientDLL*)GetInterface(L"client.dll", "VClient018");
+	clientClass = BaseClientDLL->GetAllClasses();
 	g_eventListener = new EventListener();
 }

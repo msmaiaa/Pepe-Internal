@@ -25,6 +25,9 @@ namespace config {
 	extern bool drawAimbotFov;
 	extern int aimbotSpeed;
 	extern bool smoothAimbot;
+	//
+	extern bool showKDA;
+	extern bool showPing;
 
 	bool loadConfig();
 	void saveConfig();

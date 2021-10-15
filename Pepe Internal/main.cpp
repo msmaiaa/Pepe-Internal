@@ -13,8 +13,8 @@ DWORD WINAPI InternalMain(HMODULE hMod) {
     freopen_s(&f, "CONOUT$", "w", stdout);
 #endif
     if (hook::init()) {
-        features::setupModules();
         interfaces::setupInterfaces();
+        features::setupModules();
         while (!GetAsyncKeyState(DETACH_KEY) & 1) {
             menu::mainLoop();
         }

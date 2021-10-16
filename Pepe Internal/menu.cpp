@@ -79,6 +79,7 @@ void menu::drawMenu() noexcept {
     static ImVec4 buttonDefault = ImVec4(0.490f, 0.490f, 0.490f, 1.00f);
     ImGuiStyle* style = &ImGui::GetStyle();
     ImGui::Begin("Pepe", nullptr);
+    //tabs from aimtux cuz why not?
     const char* tabs[] = {
         "Visuals",
         "Triggerbot",

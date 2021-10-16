@@ -198,6 +198,12 @@
     <ClInclude Include="IBaseClientDLL.h">
       <Filter>csgosdk</Filter>
     </ClInclude>
+    <ClInclude Include="ICvar.h">
+      <Filter>csgosdk</Filter>
+    </ClInclude>
+    <ClInclude Include="iconvar.h">
+      <Filter>csgosdk</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

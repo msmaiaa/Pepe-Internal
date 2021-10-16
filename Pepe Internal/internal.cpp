@@ -89,12 +89,10 @@ Hook::Hook(void* toHook, void* ourFunct, int len) : tToHook{ toHook }, oldOpcode
 Hook::~Hook() {
 	if (oldOpcodes != nullptr) {
 		DWORD curProtection;
-		//make memory writeable
 		VirtualProtect(tToHook, tLen, PAGE_EXECUTE_READWRITE, &curProtection);
-		for (int i = 0; i < tLen; ++i) { //write the old opcodes back to the hooked location
+		for (int i = 0; i < tLen; ++i) { 
 			((char*)tToHook)[i] = Hook::oldOpcodes[i];
 		}
-		//restore old memory protection
 		VirtualProtect(tToHook, tLen, curProtection, &curProtection);
 	}
 }
@@ -114,24 +112,13 @@ bool Hook::isEnabled() {
 TrampHook::TrampHook(void* toHook, void* ourFunct, int len) :
 	gateWay{ nullptr }, managedHook{ nullptr } {
 
-	if (len < 5) return; //jmp is 5 bytes in size
-
-	//allocate memory for our gateway:
+	if (len < 5) return;
 	gateWay = VirtualAlloc(0, len + 5, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
-
-	//write the bytes we will overwrite to the gateway
 	memcpy_s(gateWay, len, toHook, len);
-
-	//get the return address:
 	uintptr_t returnAddress = (BYTE*)toHook - (BYTE*)gateWay - 5;
-
-	//place a jmp opcode to the end of the gateway:
 	*(BYTE*)((uintptr_t)gateWay + len) = 0xE9;
-
-	//place the return Address after the jmp:
 	*(uintptr_t*)((uintptr_t)gateWay + len + 1) = returnAddress;
 
-	//create the Hook:
 	managedHook = new Hook(toHook, ourFunct, len);
 }
 

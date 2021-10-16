@@ -181,6 +181,8 @@
     <ClInclude Include="IClientRenderable.h" />
     <ClInclude Include="IClientThinkable.h" />
     <ClInclude Include="IClientUnknown.h" />
+    <ClInclude Include="iconvar.h" />
+    <ClInclude Include="ICvar.h" />
     <ClInclude Include="IEngineTrace.h" />
     <ClInclude Include="IGameEvents.h" />
     <ClInclude Include="IGameResources.h" />

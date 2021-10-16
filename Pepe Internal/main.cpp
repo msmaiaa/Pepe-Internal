@@ -24,8 +24,9 @@ DWORD WINAPI InternalMain(HMODULE hMod) {
             delete g_eventListener;
         }
         features::reset();
-        Sleep(500);
+        Sleep(200);
         hook::destroy();
+        Sleep(1000);
     }
 
 #ifdef _DEBUG 

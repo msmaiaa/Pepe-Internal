@@ -1,5 +1,5 @@
 # Pepe-Internal
-Csgo intern4l cheetos made with imgui. Not pasted but it's not a code to learn from, it has a lot of bad practices.  
+Csgo intern4l cheat made with imgui. Not pasted but it's not a code to learn from, it has a lot of bad practices.  
 Features as of 16/10/2021:  
 * Visuals
   * ESP (boxes)
